@@ -198,7 +198,7 @@ public class CustomPlaybackTransportControlGlue extends PlaybackTransportControl
         closedCaptionsAction.setLabels(new String[]{context.getString(R.string.lbl_subtitle_track)});
         selectQualityAction = new SelectQualityAction(context, this, KoinJavaComponent.get(UserPreferences.class));
         selectQualityAction.setLabels(new String[]{context.getString(R.string.lbl_quality_profile)});
-        playbackSpeedAction = new PlaybackSpeedAction(context, this, playbackController);
+        playbackSpeedAction = new PlaybackSpeedAction(context, this, playbackController, KoinJavaComponent.get(UserPreferences.class));
         playbackSpeedAction.setLabels(new String[]{context.getString(R.string.lbl_playback_speed)});
         zoomAction = new ZoomAction(context, this);
         zoomAction.setLabels(new String[]{context.getString(R.string.lbl_zoom)});

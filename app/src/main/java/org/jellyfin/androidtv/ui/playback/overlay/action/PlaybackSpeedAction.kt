@@ -5,6 +5,7 @@ import android.view.Gravity
 import android.view.View
 import android.widget.PopupMenu
 import org.jellyfin.androidtv.R
+import org.jellyfin.androidtv.preference.UserPreferences
 import org.jellyfin.androidtv.ui.playback.PlaybackController
 import org.jellyfin.androidtv.ui.playback.VideoSpeedController
 import org.jellyfin.androidtv.ui.playback.overlay.CustomPlaybackTransportControlGlue
@@ -14,9 +15,10 @@ import java.util.Locale
 class PlaybackSpeedAction(
 	context: Context,
 	customPlaybackTransportControlGlue: CustomPlaybackTransportControlGlue,
-	playbackController: PlaybackController
+	playbackController: PlaybackController,
+	userPreferences: UserPreferences,
 ) : CustomAction(context, customPlaybackTransportControlGlue) {
-	private val speedController = VideoSpeedController(playbackController)
+	private val speedController = VideoSpeedController(playbackController, userPreferences)
 	private val speeds = VideoSpeedController.SpeedSteps.entries.toTypedArray()
 	private var popup: PopupMenu? = null
 

@@ -9,7 +9,7 @@ import org.jellyfin.androidtv.preference.constant.AudioBehavior
 import org.jellyfin.androidtv.preference.constant.BackdropBehavior
 import org.jellyfin.androidtv.preference.constant.BufferLength
 import org.jellyfin.androidtv.preference.constant.ClockBehavior
-import org.jellyfin.androidtv.preference.constant.HEVCLevel
+import org.jellyfin.androidtv.preference.constant.PlaybackSpeed
 import org.jellyfin.androidtv.preference.constant.NextUpBehavior
 import org.jellyfin.androidtv.preference.constant.RefreshRateSwitchingBehavior
 import org.jellyfin.androidtv.preference.constant.StillWatchingBehavior
@@ -120,6 +120,16 @@ class UserPreferences(context: Context) : SharedPreferenceStore(
 		 * Playback buffer size preset.
 		 */
 		var bufferLength = enumPreference("buffer_length", BufferLength.AUTO)
+
+		/**
+		 * Default playback speed.
+		 */
+		var playbackSpeed = enumPreference("playback_speed", PlaybackSpeed.SPEED_1_00)
+
+		/**
+		 * Last used playback speed (set via popup). -1 means not set, use global default.
+		 */
+		var lastPlaybackSpeed = floatPreference("last_playback_speed", -1.0f)
 
 		/* Playback - Audio related */
 		/**

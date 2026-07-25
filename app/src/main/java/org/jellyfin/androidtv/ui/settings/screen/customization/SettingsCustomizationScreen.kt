@@ -82,41 +82,6 @@ fun SettingsCustomizationScreen() {
 			)
 		}
 
-		item {
-			var osdClockEnabled by rememberPreference(userPreferences, UserPreferences.osdClockEnabled)
-
-			ListButton(
-				headingContent = { Text(stringResource(R.string.lbl_osd_clock)) },
-				trailingContent = { Checkbox(checked = osdClockEnabled) },
-				captionContent = { Text(stringResource(R.string.lbl_osd_clock_description)) },
-				onClick = { osdClockEnabled = !osdClockEnabled }
-			)
-		}
-
-		item { ListSection(headingContent = { Text(stringResource(R.string.lbl_osd)) }) }
-
-		item {
-			var osdTimeEnabled by rememberPreference(userPreferences, UserPreferences.osdTimeEnabled)
-
-			ListButton(
-				headingContent = { Text(stringResource(R.string.lbl_osd_time)) },
-				trailingContent = { Checkbox(checked = osdTimeEnabled) },
-				captionContent = { Text(stringResource(R.string.lbl_osd_time_description)) },
-				onClick = { osdTimeEnabled = !osdTimeEnabled }
-			)
-		}
-
-		item {
-			var osdNetworkSpeedEnabled by rememberPreference(userPreferences, UserPreferences.osdNetworkSpeedEnabled)
-
-			ListButton(
-				headingContent = { Text(stringResource(R.string.lbl_osd_network_speed)) },
-				trailingContent = { Checkbox(checked = osdNetworkSpeedEnabled) },
-				captionContent = { Text(stringResource(R.string.lbl_osd_network_speed_description)) },
-				onClick = { osdNetworkSpeedEnabled = !osdNetworkSpeedEnabled }
-			)
-		}
-
 		item { ListSection(headingContent = { Text(stringResource(R.string.pref_browsing)) }) }
 
 		item {

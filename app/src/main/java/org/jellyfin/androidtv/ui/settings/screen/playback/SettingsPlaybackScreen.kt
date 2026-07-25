@@ -64,6 +64,17 @@ fun SettingsPlaybackScreen() {
 		}
 
 		item {
+			var playbackSpeed by rememberPreference(userPreferences, UserPreferences.playbackSpeed)
+
+			ListButton(
+				leadingContent = { Icon(painterResource(R.drawable.ic_playback_speed), contentDescription = null) },
+				headingContent = { Text(stringResource(R.string.lbl_playback_speed)) },
+				captionContent = { Text(stringResource(playbackSpeed.nameRes)) },
+				onClick = { router.push(Routes.PLAYBACK_SPEED) }
+			)
+		}
+
+		item {
 			ListButton(
 				leadingContent = { Icon(painterResource(R.drawable.ic_next_up), contentDescription = null) },
 				headingContent = { Text(stringResource(R.string.pref_playback_next_up)) },

@@ -654,4 +654,23 @@
     <string name="preference_enable_ass">直接播放ASS字幕</string>
     <string name="preference_enable_pgs_description">禁用时需要转码</string>
     <string name="preference_enable_ass_description">实验性功能，可能无法稳定运行</string>
+    <string name="lbl_osd">屏显</string>
+    <string name="lbl_osd_clock">时钟</string>
+    <string name="lbl_osd_clock_description">在播放器右上角显示系统时钟</string>
+    <string name="lbl_osd_time">播放时长</string>
+    <string name="lbl_osd_time_description">在播放器左下角显示已用/总时长</string>
+    <string name="lbl_osd_network_speed">网速</string>
+    <string name="lbl_osd_network_speed_description">在播放器右下角显示实时网速</string>
+    <string name="playback_speed_0_25">0.25x</string>
+    <string name="playback_speed_0_50">0.50x</string>
+    <string name="playback_speed_0_75">0.75x</string>
+    <string name="playback_speed_1_00">1.00x（正常）</string>
+    <string name="playback_speed_1_25">1.25x</string>
+    <string name="playback_speed_1_50">1.50x</string>
+    <string name="playback_speed_1_75">1.75x</string>
+    <string name="playback_speed_2_00">2.00x</string>
+    <string name="playback_speed_2_25">2.25x</string>
+    <string name="playback_speed_2_50">2.50x</string>
+    <string name="playback_speed_2_75">2.75x</string>
+    <string name="playback_speed_3_00">3.00x</string>
 </resources>

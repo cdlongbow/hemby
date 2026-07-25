@@ -2,7 +2,7 @@ package org.jellyfin.androidtv.ui.settings
 
 import org.jellyfin.androidtv.ui.navigation.RouteComposable
 import org.jellyfin.androidtv.ui.settings.screen.SettingsDeveloperScreen
-import org.jellyfin.androidtv.ui.settings.screen.SettingsMainScreen
+import org.jellyfin.androidtv.ui.settings.screen.SettingsOsdScreen
 import org.jellyfin.androidtv.ui.settings.screen.SettingsTelemetryScreen
 import org.jellyfin.androidtv.ui.settings.screen.about.SettingsAboutScreen
 import org.jellyfin.androidtv.ui.settings.screen.authentication.SettingsAuthenticationAutoSignInScreen
@@ -44,6 +44,7 @@ import org.jellyfin.androidtv.ui.settings.screen.playback.SettingsPlaybackPrerol
 import org.jellyfin.androidtv.ui.settings.screen.playback.SettingsPlaybackRefreshRateSwitchingBehaviorScreen
 import org.jellyfin.androidtv.ui.settings.screen.playback.SettingsPlaybackResumeSubtractDurationScreen
 import org.jellyfin.androidtv.ui.settings.screen.playback.SettingsPlaybackScreen
+import org.jellyfin.androidtv.ui.settings.screen.playback.SettingsPlaybackSpeedScreen
 import org.jellyfin.androidtv.ui.settings.screen.playback.SettingsPlaybackZoomModeScreen
 import org.jellyfin.androidtv.ui.settings.screen.playback.mediasegment.SettingsPlaybackMediaSegmentScreen
 import org.jellyfin.androidtv.ui.settings.screen.playback.mediasegment.SettingsPlaybackMediaSegmentsScreen
@@ -101,8 +102,10 @@ object Routes {
 	const val PLAYBACK_BUFFER_LENGTH = "/playback/buffer-length"
 	const val PLAYBACK_AUDIO_BEHAVIOR = "/playback/audio-behavior"
 	const val PLAYBACK_CODEC = "/playback/codec"
+	const val PLAYBACK_SPEED = "/playback/speed"
 	const val PLAYBACK_AVC_LEVEL = "/playback/codec/avc-level"
 	const val PLAYBACK_HEVC_LEVEL = "/playback/codec/hevc-level"
+	const val OSD = "/osd"
 	const val TELEMETRY = "/telemetry"
 	const val DEVELOPER = "/developer"
 	const val ABOUT = "/about"
@@ -264,6 +267,12 @@ val routes = mapOf<String, RouteComposable>(
 	},
 	Routes.PLAYBACK_HEVC_LEVEL to {
 		SettingsPlaybackHEVCLevelScreen()
+	},
+	Routes.PLAYBACK_SPEED to {
+		SettingsPlaybackSpeedScreen()
+	},
+	Routes.OSD to {
+		SettingsOsdScreen()
 	},
 	Routes.TELEMETRY to {
 		SettingsTelemetryScreen()

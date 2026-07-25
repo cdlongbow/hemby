@@ -41,6 +41,14 @@ fun SettingsMainScreen() {
 			)
 		}
 
+		item {
+			ListButton(
+				leadingContent = { Icon(painterResource(R.drawable.ic_tv_play), contentDescription = null) },
+				headingContent = { Text(stringResource(R.string.lbl_osd)) },
+				onClick = { router.push(Routes.OSD) }
+			)
+		}
+
 		// TODO: Temporarily added to root - should be accessed via customization screen instead
 		item {
 			ListButton(
