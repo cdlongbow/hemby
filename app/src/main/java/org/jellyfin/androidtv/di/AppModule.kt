@@ -86,7 +86,7 @@ val appModule = module {
 
 			// Add client info
 			val clientName = buildString {
-				append("Emby TV")
+				append("hemby")
 				if (BuildConfig.DEBUG) append(" (debug)")
 			}
 			clientInfo = ClientInfo(clientName, BuildConfig.VERSION_NAME)

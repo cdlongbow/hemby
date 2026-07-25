@@ -17,6 +17,7 @@ import org.jellyfin.androidtv.ui.playback.MediaManager
 import org.jellyfin.androidtv.ui.playback.PlaybackLauncher
 import org.jellyfin.androidtv.ui.playback.VideoQueueManager
 import org.jellyfin.androidtv.ui.playback.rewrite.RewriteMediaManager
+import org.jellyfin.androidtv.ui.player.BandwidthMeterDataSourceFactory
 import org.jellyfin.androidtv.util.AndroidVersion
 import org.jellyfin.androidtv.util.profile.createDeviceProfile
 import org.jellyfin.playback.core.playbackManager
@@ -52,6 +53,8 @@ val playbackModule = module {
 		OkHttpDataSource.Factory(okHttpFactory.createClient(httpClientOptions))
 	}
 
+	single { BandwidthMeterDataSourceFactory(get<HttpDataSource.Factory>()) }
+
 	single { createPlaybackManager() }
 }
 
@@ -72,11 +75,12 @@ fun Scope.createPlaybackManager() = playbackManager(androidContext()) {
 
 	val userPreferences = get<UserPreferences>()
 	val bufferLength = userPreferences[UserPreferences.bufferLength]
+	val bandwidthMeterFactory = get<BandwidthMeterDataSourceFactory>()
 	val exoPlayerOptions = ExoPlayerOptions(
 		preferFfmpeg = userPreferences[UserPreferences.preferExoPlayerFfmpeg],
 		enableLibass = userPreferences[UserPreferences.assDirectPlay],
 		enableDebugLogging = userPreferences[UserPreferences.debuggingEnabled],
-		baseDataSourceFactory = get<HttpDataSource.Factory>(),
+		baseDataSourceFactory = bandwidthMeterFactory,
 		minBufferDuration = bufferLength.minBufferDuration,
 		maxBufferDuration = bufferLength.maxBufferDuration,
 		bufferForPlaybackDuration = bufferLength.bufferForPlaybackDuration,

@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -26,6 +25,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import org.jellyfin.androidtv.preference.UserPreferences
 import org.jellyfin.androidtv.ui.base.Text
+import org.jellyfin.androidtv.ui.player.BandwidthMeterDataSourceFactory
 import org.jellyfin.playback.core.PlaybackManager
 import org.jellyfin.playback.core.model.PositionInfo
 import org.koin.compose.koinInject
@@ -40,19 +40,20 @@ private val timeFormat = DateTimeFormatter.ofPattern("HH:mm:ss")
 fun OsdInfoOverlay(
     playbackManager: PlaybackManager = koinInject(),
     userPreferences: UserPreferences = koinInject(),
+    bandwidthMeterFactory: BandwidthMeterDataSourceFactory = koinInject(),
 ) {
     val osdEnabled = userPreferences[UserPreferences.osdTimeCycleEnabled]
     if (!osdEnabled) return
 
     var currentTime by remember { mutableStateOf("") }
     var positionInfo by remember { mutableStateOf(PositionInfo.EMPTY) }
-
-    val speed by playbackManager.state.speed.collectAsState()
+    val bandwidth by bandwidthMeterFactory.bandwidth.collectAsState()
 
     LaunchedEffect(Unit) {
         while (isActive) {
             currentTime = LocalDateTime.now().format(timeFormat)
             positionInfo = playbackManager.state.positionInfo
+            bandwidthMeterFactory.updateBandwidth()
             delay(1000)
         }
     }
@@ -63,8 +64,11 @@ fun OsdInfoOverlay(
     val includeHours = duration.inWholeMinutes >= 60
     val timeText = "${positionInfo.active.formatted(includeHours)} / ${duration.formatted(includeHours)}"
 
-    val bufferAhead = (positionInfo.buffer - positionInfo.active).coerceAtLeast(Duration.ZERO)
-    val bufferSeconds = bufferAhead.inWholeSeconds
+    val speedText = when {
+        bandwidth <= 0 -> "0 KB/s"
+        bandwidth < 1_000_000 -> "${bandwidth / 1000} KB/s"
+        else -> "%.1f MB/s".format(bandwidth / 1_000_000f)
+    }
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -111,35 +115,18 @@ fun OsdInfoOverlay(
                         .padding(horizontal = 8.dp, vertical = 4.dp),
                 )
 
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                ) {
-                    Text(
-                        text = "Cache: ${bufferSeconds}s",
-                        color = Color.White.copy(alpha = 0.8f),
-                        fontSize = 16.sp,
-                        fontFamily = FontFamily.Monospace,
-                        modifier = Modifier
-                            .background(
-                                color = Color.Black.copy(alpha = 0.4f),
-                                shape = RoundedCornerShape(4.dp)
-                            )
-                            .padding(horizontal = 8.dp, vertical = 4.dp),
-                    )
-
-                    Text(
-                        text = "x${"%.1f".format(speed)}",
-                        color = Color.White.copy(alpha = 0.8f),
-                        fontSize = 16.sp,
-                        fontFamily = FontFamily.Monospace,
-                        modifier = Modifier
-                            .background(
-                                color = Color.Black.copy(alpha = 0.4f),
-                                shape = RoundedCornerShape(4.dp)
-                            )
-                            .padding(horizontal = 8.dp, vertical = 4.dp),
-                    )
-                }
+                Text(
+                    text = speedText,
+                    color = Color.White.copy(alpha = 0.8f),
+                    fontSize = 16.sp,
+                    fontFamily = FontFamily.Monospace,
+                    modifier = Modifier
+                        .background(
+                            color = Color.Black.copy(alpha = 0.4f),
+                            shape = RoundedCornerShape(4.dp)
+                        )
+                        .padding(horizontal = 8.dp, vertical = 4.dp),
+                )
             }
         }
     }

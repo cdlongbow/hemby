@@ -34,7 +34,7 @@ fun SettingsAboutScreen(launchedFromLogin: Boolean = false) {
 		}
 
 		item {
-			val heading = "Emby TV app version"
+			val heading = "hemby app version"
 			val caption = "jellyfin-androidtv ${BuildConfig.VERSION_NAME} ${BuildConfig.BUILD_TYPE}"
 			ListButton(
 				leadingContent = { Icon(painterResource(R.drawable.ic_jellyfin), contentDescription = null) },

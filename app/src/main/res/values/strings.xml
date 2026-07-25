@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <string name="app_name_release" translatable="false" tools:ignore="UnusedResources">Emby TV</string>
-    <string name="app_name_debug" translatable="false" tools:ignore="UnusedResources">Emby TV Debug</string>
+    <string name="app_name_release" translatable="false" tools:ignore="UnusedResources">hemby</string>
+    <string name="app_name_debug" translatable="false" tools:ignore="UnusedResources">hemby Debug</string>
     <string name="video_error_unknown_error">Failed to load video</string>
     <string name="loading">Loading…</string>
     <string name="btn_cancel">Cancel</string>
@@ -351,7 +351,7 @@
     <string name="lbl_use_series_thumbnails">Prefer series thumbnails</string>
     <string name="lbl_use_series_thumbnails_description">Use series thumbnails when displaying episodes</string>
     <string name="lbl_osd_time_cycle">OSD info overlay (clock / time / speed)</string>
-    <string name="lbl_osd_time_cycle_description">Show system clock, playback time, and buffer status on screen</string>
+    <string name="lbl_osd_time_cycle_description">Show system clock, playback time, and network speed on screen</string>
     <string name="auto_sign_in">Automatic sign in</string>
     <string name="user_picker_disable_title">Disable</string>
     <string name="user_picker_disable_summary">Always show the sign in screen</string>
