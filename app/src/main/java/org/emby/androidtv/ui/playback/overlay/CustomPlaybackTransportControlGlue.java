@@ -173,7 +173,6 @@ public class CustomPlaybackTransportControlGlue extends PlaybackTransportControl
                 return vh;
             }
 
-            @Override
             protected View onCreateActionButton(ViewGroup parent) {
                 Context ctx = parent.getContext();
                 TextView button = new TextView(ctx);
@@ -193,10 +192,10 @@ public class CustomPlaybackTransportControlGlue extends PlaybackTransportControl
                 return button;
             }
 
-            @Override
             protected void onBindActionButton(View view, Action action, int actionIndex) {
-                if (view instanceof TextView && action.getLabel(0) != null) {
-                    ((TextView) view).setText(action.getLabel(0));
+                CharSequence label = action.getLabel1();
+                if (view instanceof TextView && label != null) {
+                    ((TextView) view).setText(label);
                 }
             }
 
@@ -249,9 +248,7 @@ public class CustomPlaybackTransportControlGlue extends PlaybackTransportControl
         fastForwardAction = new FastForwardAction(context);
         fastForwardAction.setLabels(new String[]{context.getString(R.string.lbl_fast_forward)});
         skipPreviousAction = new SkipPreviousAction(context);
-        skipPreviousAction.setLabels(new String[]{context.getString(R.string.lbl_previous_episode)});
         skipNextAction = new SkipNextAction(context);
-        skipNextAction.setLabels(new String[]{context.getString(R.string.lbl_next_episode)});
 
         // TV actions
         previousLiveTvChannelAction = new PreviousLiveTvChannelAction(context, this);

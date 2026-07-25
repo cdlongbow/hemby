@@ -1456,7 +1456,7 @@ public class CustomPlaybackOverlayFragment extends Fragment implements LiveTvGui
         UUID seriesId = item.getSeriesId();
         if (seriesId == null) return;
 
-        GetItemsRequest query = BrowsingUtils.Companion.createSeriesEpisodesRequest(seriesId);
+        GetItemsRequest query = BrowsingUtils.createSeriesEpisodesRequest(seriesId);
 
         ItemRowAdapter episodeAdapter = new ItemRowAdapter(
                 requireContext(),

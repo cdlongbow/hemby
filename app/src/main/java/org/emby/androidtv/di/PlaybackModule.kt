@@ -54,7 +54,7 @@ val playbackModule = module {
 		OkHttpDataSource.Factory(okHttpFactory.createClient(httpClientOptions))
 	}
 
-	single { BandwidthMeterDataSourceFactory(get<HttpDataSource.Factory>()) }
+	single { BandwidthMeterDataSourceFactory(get<HttpDataSource.Factory>(), get()) }
 
 	single { IntroOutroStore(get()) }
 

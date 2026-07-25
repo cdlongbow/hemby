@@ -7,15 +7,12 @@ import org.emby.androidtv.R
 import org.emby.androidtv.ui.base.Text
 import org.emby.androidtv.ui.base.list.ListButton
 import org.emby.androidtv.ui.base.list.ListSection
-import org.emby.androidtv.ui.navigation.LocalRouter
 import org.emby.androidtv.ui.playback.segment.MediaSegmentRepository
-import org.emby.androidtv.ui.settings.Routes
 import org.emby.androidtv.ui.settings.composable.SettingsColumn
 import org.koin.compose.koinInject
 
 @Composable
 fun SettingsPlaybackMediaSegmentsScreen() {
-	val router = LocalRouter.current
 	val mediaSegmentRepository = koinInject<MediaSegmentRepository>()
 
 	SettingsColumn {
@@ -32,14 +29,7 @@ fun SettingsPlaybackMediaSegmentsScreen() {
 			ListButton(
 				headingContent = { Text(stringResource(segmentType.nameRes)) },
 				captionContent = { Text(stringResource(action.nameRes)) },
-				onClick = {
-					router.push(
-						route = Routes.PLAYBACK_MEDIA_SEGMENT,
-						parameters = mapOf(
-							"segmentType" to segmentType.toString(),
-						),
-					)
-				}
+				onClick = { }
 			)
 		}
 	}

@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.preference.PreferenceManager
 import org.emby.androidtv.preference.UserPreferences.Companion.screensaverInAppEnabled
 import org.emby.androidtv.preference.constant.AVCLevel
+import org.emby.androidtv.preference.constant.HEVCLevel
 import org.emby.androidtv.preference.constant.AppTheme
 import org.emby.androidtv.preference.constant.AudioBehavior
 import org.emby.androidtv.preference.constant.BackdropBehavior

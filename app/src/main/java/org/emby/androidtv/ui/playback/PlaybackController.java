@@ -107,7 +107,7 @@ public class PlaybackController implements PlaybackControllerNotifiable {
     private Runnable mReportLoop;
     private Handler mHandler;
 
-    private long mStartPosition = 0;
+    long mStartPosition = 0;
 
     // tmp position used when seeking
     private long mSeekPosition = -1;

@@ -5,7 +5,7 @@ import android.view.View
 import org.emby.androidtv.R
 import org.emby.androidtv.ui.playback.IntroOutroStore
 import org.emby.androidtv.ui.playback.PlaybackController
-import org.emby.androidtv.ui.playback.VideoPlayerAdapter
+import org.emby.androidtv.ui.playback.overlay.VideoPlayerAdapter
 import org.emby.androidtv.ui.playback.overlay.CustomPlaybackTransportControlGlue
 import java.util.UUID
 

@@ -2,6 +2,7 @@ package org.emby.androidtv.ui.settings
 
 import org.emby.androidtv.ui.navigation.RouteComposable
 import org.emby.androidtv.ui.settings.screen.SettingsDeveloperScreen
+import org.emby.androidtv.ui.settings.screen.SettingsMainScreen
 import org.emby.androidtv.ui.settings.screen.SettingsOsdScreen
 import org.emby.androidtv.ui.settings.screen.about.SettingsAboutScreen
 import org.emby.androidtv.ui.settings.screen.authentication.SettingsAuthenticationAutoSignInScreen

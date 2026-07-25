@@ -139,31 +139,6 @@ Box(
             }
         }
     }
-
-        Box(
-            modifier = Modifier
-                .align(Alignment.BottomStart)
-                .padding(start = 16.dp, bottom = 80.dp)
-        ) {
-            Text(
-                text = timeText,
-                color = Color.White,
-                fontSize = 16.sp,
-                fontFamily = FontFamily.Monospace,
-                modifier = Modifier
-                    .background(
-                        color = Color.Black.copy(alpha = 0.5f),
-                        shape = RoundedCornerShape(4.dp)
-                    )
-                    .padding(horizontal = 8.dp, vertical = 4.dp),
-            )
-        }
-
-        Box(
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(end = 16.dp, bottom = 80.dp)
-    }
 }
 
 private fun Duration.formatted(includeHours: Boolean): String {
