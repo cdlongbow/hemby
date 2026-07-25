@@ -282,14 +282,14 @@
         <item quantity="other">%1$s episoodi</item>
     </plurals>
     <string name="pref_developer_link_description">Täiustatud ja eksperimentaalsed funktsioonid</string>
-    <string name="login_help_description">Jellyfin vajab ühenduse loomiseks serverit. Jellyfini kasutamise alustamiseks külastage meie dokumentatsiooni aadressil docs.jellyfin.org või skannige QR-koodi.</string>
+    <string name="login_help_description">Emby vajab ühenduse loomiseks serverit. Embyi kasutamise alustamiseks külastage meie dokumentatsiooni aadressil docs.jellyfin.org või skannige QR-koodi.</string>
     <string name="home_prefs">Avaleht</string>
     <string name="pref_crash_reports_disabled">Krahhiaruandeid ei esitata</string>
     <string name="item_delete_confirm_title">Kustuta üksus</string>
     <string name="licenses_link">Litsentsid</string>
     <string name="home_section_resume">Jätka vaatamist</string>
     <string name="server_issue_missing_version">Serveri versiooni ei õnnestunud tuvastada</string>
-    <string name="server_unsupported_notification">See server kasutab Jellyfini versiooni %1$s, mida ei toetata. Rakenduse kasutamise jätkamiseks värskendage versioonile Jellyfin %2$s või uuemale versioonile.</string>
+    <string name="server_unsupported_notification">See server kasutab Embyi versiooni %1$s, mida ei toetata. Rakenduse kasutamise jätkamiseks värskendage versioonile Emby %2$s või uuemale versioonile.</string>
     <string name="disable_ui_mode_warning">Keela seadme tüübi hoiatus</string>
     <plurals name="seconds">
         <item quantity="one">%1$s sekund</item>
@@ -351,7 +351,7 @@
     <string name="action_use_password">Kasuta parooli</string>
     <string name="pref_crash_report_logs_disabled">Logisid krahhiaruannetesse ei kaasata</string>
     <string name="lbl_special">Eriepisoodid</string>
-    <string name="welcome_title">Jellyfin tervitab!</string>
+    <string name="welcome_title">Emby tervitab!</string>
     <string name="watch_count_overflow">99+</string>
     <string name="pref_clock_display">Kuva kell</string>
     <string name="enable_smart_view">Luba nutikas ekraan</string>
@@ -390,7 +390,7 @@
     <string name="lbl_on_channel">%1$s</string>
     <string name="enable_playback_module_description">See on eksperimentaalne funktsioon. Toetust ei pakuta.</string>
     <string name="license_description">Kirjeldus</string>
-    <string name="licenses_link_description">Vaadake rakenduse Jellyfin kasutatavate kogude litsentse</string>
+    <string name="licenses_link_description">Vaadake rakenduse Emby kasutatavate kogude litsentse</string>
     <string name="home_section_next_up">Järgmisena</string>
     <string name="home_section_none">Puudub</string>
     <string name="searchable_settings_description">Meedia</string>
@@ -406,7 +406,7 @@
     <string name="pref_direct_stream_live_on">Ümberkodeerimine on keelatud</string>
     <string name="action_use_quickconnect">Kasuta kiirühendamist</string>
     <string name="login_connect_to">Ühenduse loomine %1$s</string>
-    <string name="login_quickconnect_step_1">1. Avage oma telefonis või veebibrauseris rakendus Jellyfin ja logige sisse oma kontoga</string>
+    <string name="login_quickconnect_step_1">1. Avage oma telefonis või veebibrauseris rakendus Emby ja logige sisse oma kontoga</string>
     <string name="input_username">Kasutajanimi</string>
     <string name="login_quickconnect_step_2">2. Avage kasutajamenüü ja minge kiirühenduse lehele</string>
     <string name="app_notification_uimode_invalid">See rakendus on optimeeritud telerite jaoks. Soovitame kasutada meie mobiilirakendust teistes seadmetes.</string>
@@ -414,8 +414,8 @@
     <string name="pref_crash_reports">Saada serverisse krahhiaruanded</string>
     <string name="not_set">Pole määratud</string>
     <string name="pref_crash_report_logs_enabled">Logid kaasatakse krahhiaruannetesse</string>
-    <string name="crash_report_toast">Oih! Midagi läks valesti, sinu Jellyfini serverisse saadeti krahhiaruanne.</string>
-    <string name="server_setup_incomplete">Selle serveri seadistamine pole lõpetatud. Avage Jellyfin veebibrauseris, et enne sisselogimist seadistamine lõpule viia.</string>
+    <string name="crash_report_toast">Oih! Midagi läks valesti, sinu Embyi serverisse saadeti krahhiaruanne.</string>
+    <string name="server_setup_incomplete">Selle serveri seadistamine pole lõpetatud. Avage Emby veebibrauseris, et enne sisselogimist seadistamine lõpule viia.</string>
     <string name="pref_enable_media_management">Luba meediahaldus</string>
     <string name="pref_screensaver_inapp_timeout">Käivita ekraanisäästja pärast</string>
     <string name="lbl_hidden">Peidetud</string>
@@ -439,7 +439,7 @@
     <string name="user_picker_disable_summary">Kuva alati sisselogimisaken</string>
     <string name="user_picker_last_user_summary">Kasuta viimast aktiivset kontot</string>
     <string name="lbl_switch_user">Vaheta kontot</string>
-    <string name="no_network_permissions">Jellyfin vajab töötamiseks võrgulubasid</string>
+    <string name="no_network_permissions">Emby vajab töötamiseks võrgulubasid</string>
     <string name="press_to_close">Vajutage sulgemiseks</string>
     <string name="saved_servers">Salvestatud serverid</string>
     <string name="welcome_content">Alustamiseks looge oma serveriga ühendus.</string>
@@ -451,12 +451,12 @@
     <string name="lbl_next_up_extended">Pisipildiga</string>
     <string name="lbl_name_date">%1$s (%2$s)</string>
     <string name="last_use">Viimati kasutatud</string>
-    <string name="searchable_hint">Otsige Jellyfinist</string>
+    <string name="searchable_hint">Otsige Embyist</string>
     <string name="color_darkgrey">Tumehall</string>
     <string name="input_password">Parool</string>
     <string name="pref_telemetry_description">Saada krahhiaruandeid, kaasa logisid</string>
     <string name="app_notification_beta">Rakendus värskendati versioonile %1$s
-\nTäname, et osalesite Jellyfini beetaprogrammis.</string>
+\nTäname, et osalesite Embyi beetaprogrammis.</string>
     <string name="select_version">Versioon</string>
     <string name="alphabetical">Tähestikuline</string>
     <string name="always_authenticate_description">Selle funktsiooni lubamine keelab automaatse sisselogimise</string>
@@ -484,7 +484,7 @@
     <string name="episode_name_special">eriosa</string>
     <string name="item_deletion_failed">%1$s ei saa kustutada</string>
     <string name="pref_enable_media_management_description">Kuva sirvimise ajal meedia haldamise valik</string>
-    <string name="pref_screensaver_inapp_enabled_description">Kuva Jellyfini ekraanisäästja, kui rakendus on avatud</string>
+    <string name="pref_screensaver_inapp_enabled_description">Kuva Embyi ekraanisäästja, kui rakendus on avatud</string>
     <plurals name="minutes">
         <item quantity="one">%1$s minut</item>
         <item quantity="other">%1$s minutit</item>
@@ -558,7 +558,7 @@
     <string name="preference_enable_pgs">PGS subtiitrite otseesitus</string>
     <string name="pref_report_device_profile_success">Dokument esitati nimega %1$s</string>
     <string name="pref_subtitles_background_opacity">Subtiitrite tausta läbipaistmatus</string>
-    <string name="pref_report_device_profile_failure">Dokumendi esitamine nurjus. Jellyfini server võib takistada kliendilogisi.</string>
+    <string name="pref_report_device_profile_failure">Dokumendi esitamine nurjus. Embyi server võib takistada kliendilogisi.</string>
     <string name="speech_error_no_permission">Mikrofoni kasutamiseks pole luba. Luba see süsteemiseadetes.</string>
     <string name="segment_action_nothing">Ära tee midagi</string>
     <string name="segment_action_ask_to_skip">Küsi, kas jätta vahele</string>
@@ -571,7 +571,7 @@
     <string name="skip_forward_length">Edasihüppe pikkus</string>
     <string name="pref_troubleshooting">Veaotsing</string>
     <string name="pref_report_device_profile_title">Teata toetatud taasesitusvõimed serverile</string>
-    <string name="pref_report_device_profile_summary">Laadi Jellyfini serverisse üles tõrkeotsingu dokument, mis sisaldab teavet taasesitusvõimete kohta</string>
+    <string name="pref_report_device_profile_summary">Laadi Embyi serverisse üles tõrkeotsingu dokument, mis sisaldab teavet taasesitusvõimete kohta</string>
     <string name="rewind">Keri tagasi</string>
     <string name="speech_error_unavailable">Kõnetuvastus pole selles seadmes saadaval.</string>
     <string name="speech_error_unknown">Kõnetuvastuse ajal ilmnes ootamatu viga.</string>
@@ -606,7 +606,7 @@
     <string name="color_custom">Kohanda värvi</string>
     <string name="color_alpha">Läbipaistvus</string>
     <string name="pref_playback_media_segments">Meediasegmendid</string>
-    <string name="playback_video_player_external_empty">Selles seadmes pole rakendust, millega saaks Jellyfini videoid esitada.</string>
+    <string name="playback_video_player_external_empty">Selles seadmes pole rakendust, millega saaks Embyi videoid esitada.</string>
     <string name="video_player_external">Väline rakendus</string>
     <string name="video_player_internal">Sisseehitatud videopleier</string>
     <string name="playback_video_player">Videopleier</string>

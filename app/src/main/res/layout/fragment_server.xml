@@ -26,7 +26,7 @@
 
     <TextView
         android:id="@+id/title"
-        style="@style/Widget.Jellyfin.Row.Header"
+        style="@style/Widget.Emby.Row.Header"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -81,7 +81,7 @@
             android:drawableStart="@drawable/ic_user_add"
             android:text="@string/add_user" />
 
-        <org.jellyfin.androidtv.ui.ServerButtonView
+        <org.emby.androidtv.ui.ServerButtonView
             android:id="@+id/server_button"
             android:layout_width="0dp"
             android:layout_height="51dp"
@@ -90,7 +90,7 @@
             android:padding="0dp" />
     </LinearLayout>
 
-    <org.jellyfin.androidtv.ui.ExpandableTextView
+    <org.emby.androidtv.ui.ExpandableTextView
         android:id="@+id/login_disclaimer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

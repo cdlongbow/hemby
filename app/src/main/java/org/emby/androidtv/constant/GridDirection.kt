@@ -1,0 +1,18 @@
+package org.emby.androidtv.constant
+
+import org.emby.androidtv.R
+import org.jellyfin.preference.PreferenceEnum
+
+enum class GridDirection(
+	override val nameRes: Int,
+) : PreferenceEnum {
+	/**
+	 * Horizontal.
+	 */
+	HORIZONTAL(R.string.grid_direction_horizontal),
+
+	/**
+	 * Vertical.
+	 */
+	VERTICAL(R.string.grid_direction_vertical),
+}

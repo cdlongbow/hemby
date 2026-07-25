@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-	namespace = "org.jellyfin.androidtv"
+	namespace = "org.emby.androidtv"
 	compileSdk = libs.versions.android.compileSdk.get().toInt()
 
 	defaultConfig {

@@ -16,7 +16,7 @@
 
         <TextView
             android:id="@+id/stored_servers_title"
-            style="@style/Widget.Jellyfin.Row.Header"
+            style="@style/Widget.Emby.Row.Header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/saved_servers"
@@ -35,7 +35,7 @@
 
         <TextView
             android:id="@+id/welcome_title"
-            style="@style/Widget.Jellyfin.Row.Header"
+            style="@style/Widget.Emby.Row.Header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/welcome_title" />
@@ -81,7 +81,7 @@
 
             <TextView
                 android:id="@+id/discovery_title"
-                style="@style/Widget.Jellyfin.Row.Header"
+                style="@style/Widget.Emby.Row.Header"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

@@ -43,7 +43,7 @@
     </queries>
 
     <application
-        android:name=".JellyfinApplication"
+        android:name=".EmbyApplication"
         android:allowBackup="true"
         android:appCategory="video"
         android:banner="@mipmap/app_banner"
@@ -54,7 +54,7 @@
         android:largeHeap="true"
         android:networkSecurityConfig="@xml/network_security_config"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Jellyfin"
+        android:theme="@style/Theme.Emby"
         android:usesCleartextTraffic="true">
 
         <!-- Screensaver -->
@@ -76,13 +76,13 @@
             android:initOrder="1000"
             tools:node="merge">
             <meta-data
-                android:name="org.jellyfin.androidtv.LogInitializer"
+                android:name="org.emby.androidtv.LogInitializer"
                 android:value="androidx.startup" />
             <meta-data
-                android:name="org.jellyfin.androidtv.di.KoinInitializer"
+                android:name="org.emby.androidtv.di.KoinInitializer"
                 android:value="androidx.startup" />
             <meta-data
-                android:name="org.jellyfin.androidtv.SessionInitializer"
+                android:name="org.emby.androidtv.SessionInitializer"
                 android:value="androidx.startup" />
         </provider>
 

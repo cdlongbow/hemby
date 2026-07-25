@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <org.jellyfin.androidtv.ui.ObservableScrollView
+    <org.emby.androidtv.ui.ObservableScrollView
         android:layout_width="160sp"
         android:layout_height="match_parent"
         android:id="@+id/channelScroller"
@@ -23,9 +23,9 @@
             android:focusable="false"
             android:focusableInTouchMode="false"
             android:id="@+id/channels" />
-    </org.jellyfin.androidtv.ui.ObservableScrollView>
+    </org.emby.androidtv.ui.ObservableScrollView>
 
-    <org.jellyfin.androidtv.ui.ObservableScrollView
+    <org.emby.androidtv.ui.ObservableScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/programVScroller"
@@ -34,7 +34,7 @@
         android:layout_toEndOf="@+id/channelScroller"
         android:layout_alignBottom="@+id/channelScroller">
 
-        <org.jellyfin.androidtv.ui.ObservableHorizontalScrollView
+        <org.emby.androidtv.ui.ObservableHorizontalScrollView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/programHScroller" >
@@ -46,8 +46,8 @@
                 android:id="@+id/programRows">
 
             </LinearLayout>
-        </org.jellyfin.androidtv.ui.ObservableHorizontalScrollView>
-    </org.jellyfin.androidtv.ui.ObservableScrollView>
+        </org.emby.androidtv.ui.ObservableHorizontalScrollView>
+    </org.emby.androidtv.ui.ObservableScrollView>
 
     <HorizontalScrollView
         android:layout_width="match_parent"
@@ -79,7 +79,7 @@
         android:gravity="center"
         android:textSize="14sp" />
 
-    <org.jellyfin.androidtv.ui.ClockUserView
+    <org.emby.androidtv.ui.ClockUserView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/clock"
@@ -87,7 +87,7 @@
         android:layout_marginEnd="40sp"
         android:layout_alignParentEnd="true" />
 
-    <org.jellyfin.androidtv.ui.AsyncImageView
+    <org.emby.androidtv.ui.AsyncImageView
         android:layout_width="150sp"
         android:layout_height="150sp"
         android:id="@+id/programImage"
@@ -171,7 +171,7 @@
         android:layout_marginBottom="10sp"
         android:src="@drawable/ic_settings"
         android:padding="3dp"
-        android:background="@drawable/jellyfin_button"
+        android:background="@drawable/emby_button"
         android:scaleType="fitCenter" />
 
     <ImageButton
@@ -185,7 +185,7 @@
         android:layout_marginBottom="10sp"
         android:src="@drawable/ic_filter"
         android:padding="3dp"
-        android:background="@drawable/jellyfin_button"
+        android:background="@drawable/emby_button"
         android:scaleType="fitCenter" />
 
     <ImageButton
@@ -200,7 +200,7 @@
         android:src="@drawable/ic_calendar"
         android:scaleType="fitCenter"
         android:padding="6dp"
-        android:background="@drawable/jellyfin_button"
+        android:background="@drawable/emby_button"
         android:layout_toStartOf="@+id/filterButton" />
 
     <ImageButton
@@ -216,7 +216,7 @@
         android:scaleType="fitCenter"
         android:visibility="gone"
         android:padding="6dp"
-        android:background="@drawable/jellyfin_button"
+        android:background="@drawable/emby_button"
         android:layout_toStartOf="@+id/dateButton" />
 
     <RelativeLayout

@@ -4,7 +4,7 @@
     android:id="@+id/button"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/jellyfin_button_minimal"
+    android:background="@drawable/emby_button_minimal"
     android:foreground="@drawable/ripple"
     android:minWidth="30dp"
     android:minHeight="35dp" />
