@@ -1,9 +1,7 @@
 package org.jellyfin.androidtv.ui.player.video
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -96,39 +94,27 @@ fun OsdInfoOverlay(
 
         Box(
             modifier = Modifier
+                .align(Alignment.BottomStart)
+                .padding(start = 16.dp, bottom = 80.dp)
+        ) {
+            Text(
+                text = timeText,
+                color = Color.White,
+                fontSize = 16.sp,
+                fontFamily = FontFamily.Monospace,
+                modifier = Modifier
+                    .background(
+                        color = Color.Black.copy(alpha = 0.5f),
+                        shape = RoundedCornerShape(4.dp)
+                    )
+                    .padding(horizontal = 8.dp, vertical = 4.dp),
+            )
+        }
+
+        Box(
+            modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(end = 16.dp, bottom = 80.dp)
-        ) {
-            Column(
-                verticalArrangement = Arrangement.spacedBy(4.dp),
-            ) {
-                Text(
-                    text = timeText,
-                    color = Color.White,
-                    fontSize = 16.sp,
-                    fontFamily = FontFamily.Monospace,
-                    modifier = Modifier
-                        .background(
-                            color = Color.Black.copy(alpha = 0.5f),
-                            shape = RoundedCornerShape(4.dp)
-                        )
-                        .padding(horizontal = 8.dp, vertical = 4.dp),
-                )
-
-                Text(
-                    text = speedText,
-                    color = Color.White.copy(alpha = 0.8f),
-                    fontSize = 16.sp,
-                    fontFamily = FontFamily.Monospace,
-                    modifier = Modifier
-                        .background(
-                            color = Color.Black.copy(alpha = 0.4f),
-                            shape = RoundedCornerShape(4.dp)
-                        )
-                        .padding(horizontal = 8.dp, vertical = 4.dp),
-                )
-            }
-        }
     }
 }
 
