@@ -348,7 +348,7 @@
     <string name="lbl_use_series_thumbnails">Prikazuj sličice serij</string>
     <string name="lbl_hide_unwatched_count">Ko je vsebina ogledana</string>
     <string name="pref_watched_indicator">Prikaži kazalnike za funkcijo že ogledano</string>
-    <string name="login_help_description">Emby zahteva strežnik za povezavo. Obiščite našo dokumentacijo na docs.jellyfin.org ali skenirajte QR kodo za pričetek uporabe Emby.</string>
+    <string name="login_help_description">Emby zahteva strežnik za povezavo. Obiščite našo dokumentacijo na emby.media ali skenirajte QR kodo za pričetek uporabe Emby.</string>
     <string name="login_help_title">Potrebujete pomoč\?</string>
     <string name="connect_manually_by_address">Vnesi naslov strežnika</string>
     <string name="discovered_servers_empty">Ne najdem strežnikov na lokalni mreži.</string>

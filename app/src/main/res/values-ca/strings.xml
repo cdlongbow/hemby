@@ -349,7 +349,7 @@
     <string name="lbl_use_series_thumbnails">Prioritza miniatures de sèries</string>
     <string name="lbl_hide_unwatched_count">Quan l\'element estigui vist</string>
     <string name="pref_watched_indicator">Marca els elements ja visualitzats</string>
-    <string name="login_help_description">Emby necessita un servidor on connectar-se. Visiteu la documentació a docs.jellyfin.org o escanegeu el codi QR per a començar.</string>
+    <string name="login_help_description">Emby necessita un servidor on connectar-se. Visiteu la documentació a emby.media o escanegeu el codi QR per a començar.</string>
     <string name="login_help_title">Us cal ajuda?</string>
     <string name="connect_manually_by_address">Introduïu l\'adreça del servidor</string>
     <string name="discovered_servers_empty">No s\'han trobat servidors a la xarxa local.</string>

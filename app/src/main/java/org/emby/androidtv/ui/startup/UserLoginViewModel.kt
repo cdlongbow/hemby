@@ -1,24 +1,15 @@
 package org.emby.androidtv.ui.startup
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.isActive
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.emby.androidtv.auth.model.AuthenticatingState
 import org.emby.androidtv.auth.model.AutomaticAuthenticateMethod
-import org.emby.androidtv.auth.model.ConnectedQuickConnectState
 import org.emby.androidtv.auth.model.CredentialAuthenticateMethod
 import org.emby.androidtv.auth.model.LoginState
-import org.emby.androidtv.auth.model.PendingQuickConnectState
-import org.emby.androidtv.auth.model.QuickConnectAuthenticateMethod
 import org.emby.androidtv.auth.model.QuickConnectState
 import org.emby.androidtv.auth.model.Server
 import org.emby.androidtv.auth.model.UnavailableQuickConnectState
@@ -26,17 +17,12 @@ import org.emby.androidtv.auth.model.UnknownQuickConnectState
 import org.emby.androidtv.auth.model.User
 import org.emby.androidtv.auth.repository.AuthenticationRepository
 import org.emby.androidtv.auth.repository.ServerRepository
-import org.emby.androidtv.util.sdk.forUser
 import org.jellyfin.sdk.Jellyfin
-import org.jellyfin.sdk.api.client.exception.ApiClientException
-import org.jellyfin.sdk.api.client.extensions.quickConnectApi
 import org.jellyfin.sdk.model.DeviceInfo
-import timber.log.Timber
 import java.util.UUID
-import kotlin.time.Duration.Companion.seconds
 
 class UserLoginViewModel(
-	jellyfin: Jellyfin,
+	@Suppress("UNUSED_PARAMETER") jellyfin: Jellyfin,
 	private val serverRepository: ServerRepository,
 	private val authenticationRepository: AuthenticationRepository,
 	private val defaultDeviceInfo: DeviceInfo,
@@ -49,8 +35,6 @@ class UserLoginViewModel(
 	private val _server = MutableStateFlow<Server?>(null)
 	val server = _server.asStateFlow()
 
-	private val quickConnectApi = jellyfin.createApi()
-	private var quickConnectSecret: String? = null
 	private val _quickConnectState = MutableStateFlow<QuickConnectState>(UnknownQuickConnectState)
 	val quickConnectState = _quickConnectState.asStateFlow()
 	fun authenticate(server: Server, user: User): Flow<LoginState> =
@@ -69,74 +53,8 @@ class UserLoginViewModel(
 		_quickConnectState.value = UnknownQuickConnectState
 	}
 
-	/**
-	 * Start a new Quick Connect flow. Does nothing when already active.
-	 */
 	suspend fun initiateQuickconnect() {
-		// Already initialized
-		if (quickConnectState.value != UnknownQuickConnectState) return
-
-		val server = server.value ?: return
-		_quickConnectState.emit(UnknownQuickConnectState)
-		quickConnectSecret = null
-
-		try {
-			val response = withContext(Dispatchers.IO) {
-				quickConnectApi.update(
-					baseUrl = server.address,
-					deviceInfo = defaultDeviceInfo.forUser(UUID.randomUUID()),
-				)
-
-				quickConnectApi.quickConnectApi.initiateQuickConnect().content
-			}
-
-			quickConnectSecret = response.secret
-			_quickConnectState.emit(PendingQuickConnectState(response.code))
-		} catch (err: ApiClientException) {
-			Timber.e(err, "Unable to initiate QuickConnect")
-			_quickConnectState.emit(UnavailableQuickConnectState)
-		}
-
-		// Update every 5 seconds until QuickConnect is inactive or the view model is cancelled
-		viewModelScope.launch {
-			while (isActive) {
-				delay(5.seconds)
-				if (!updateQuickConnectState()) break
-			}
-		}
-	}
-
-	/**
-	 * Update the Quick Connect state.
-	 *
-	 * @return true when Quick Connect is active, false when inactive.
-	 */
-	private suspend fun updateQuickConnectState(): Boolean {
-		val server = server.value ?: return false
-		val secret = quickConnectSecret ?: return false
-
-		try {
-			val state = withContext(Dispatchers.IO) {
-				quickConnectApi.quickConnectApi.getQuickConnectState(secret = secret).content
-			}
-
-			if (state.authenticated) {
-				_quickConnectState.emit(ConnectedQuickConnectState)
-
-				authenticationRepository.authenticate(server, QuickConnectAuthenticateMethod(state.secret)).collect {
-					_loginState.emit(it)
-				}
-
-				return false
-			} else {
-				_quickConnectState.emit(PendingQuickConnectState(state.code))
-				return true
-			}
-		} catch (err: ApiClientException) {
-			Timber.e(err, "Unable to initiate QuickConnect")
-			_quickConnectState.emit(UnavailableQuickConnectState)
-			return false
-		}
+		_quickConnectState.emit(UnavailableQuickConnectState)
 	}
 
 	fun setServer(id: UUID?) {

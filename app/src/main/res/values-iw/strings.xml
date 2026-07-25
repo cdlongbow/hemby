@@ -285,7 +285,7 @@
     <string name="lbl_use_series_thumbnails">העדף תמונה ממוזערת של העונה</string>
     <string name="lbl_hide_unwatched_count">כאשר הפריט נצפה</string>
     <string name="pref_watched_indicator">הצג סימן עבור פריטים שנצפו</string>
-    <string name="login_help_description">Emby זקוק לשרת להתחבר אליו. בקר בתיעוד שלנו ב-docs.jellyfin.org או סרוק את קוד ה-QR בכדי להתחיל להשתמש ב-Emby.</string>
+    <string name="login_help_description">Emby זקוק לשרת להתחבר אליו. בקר בתיעוד שלנו ב-emby.media או סרוק את קוד ה-QR בכדי להתחיל להשתמש ב-Emby.</string>
     <string name="login_help_title">זקוק לעזרה?</string>
     <string name="connect_manually_by_address">הזן כתובת שרת</string>
     <string name="discovered_servers_empty">לא נמצאו שרתים ברשת המקומית.</string>

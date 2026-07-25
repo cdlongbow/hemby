@@ -277,7 +277,7 @@
     <string name="lbl_use_series_thumbnails">Foretrekker serieminiatyrbilder</string>
     <string name="lbl_hide_unwatched_count">Når elementet er sett</string>
     <string name="pref_watched_indicator">Vis overvåkede indikatorer</string>
-    <string name="login_help_description">Emby krever en tjener å koble seg til. Gå til dokumentasjonen vår på docs.jellyfin.org eller skann QR-koden for å komme i gang med Emby.</string>
+    <string name="login_help_description">Emby krever en tjener å koble seg til. Gå til dokumentasjonen vår på emby.media eller skann QR-koden for å komme i gang med Emby.</string>
     <string name="login_help_title">Trenger du hjelp\?</string>
     <string name="connect_manually_by_address">Skriv inn serveradresse</string>
     <string name="discovered_servers_empty">Ingen servere funnet i det lokale nettverket.</string>

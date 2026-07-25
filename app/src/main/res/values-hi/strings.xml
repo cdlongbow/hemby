@@ -308,7 +308,7 @@
     <string name="enable_smart_view">स्मार्ट स्क्रीन चालू करें</string>
     <string name="image_size_medium">मध्यम</string>
     <string name="select_version">संस्करण</string>
-    <string name="login_help_description">जेलीफ़िन को कनेक्ट करने के लिए एक सर्वर की आवश्यकता होती है। जेलीफ़िन के साथ शुरुआत करने के लिए docs.jellyfin.org पर हमारे दस्तावेज़ देखें या QR कोड स्कैन करें।</string>
+    <string name="login_help_description">जेलीफ़िन को कनेक्ट करने के लिए एक सर्वर की आवश्यकता होती है। जेलीफ़िन के साथ शुरुआत करने के लिए emby.media पर हमारे दस्तावेज़ देखें या QR कोड स्कैन करें।</string>
     <string name="color_cyan">सियान</string>
     <string name="who_is_watching">कौन देख रहा है?</string>
     <string name="server_issue_invalid_product">सर्वर सॉफ़्टवेयर कम्पेटिबल नहीं है</string>

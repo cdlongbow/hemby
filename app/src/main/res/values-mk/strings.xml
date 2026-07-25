@@ -130,7 +130,7 @@
     <string name="enable_smart_view_description">Паметниот екран прикажува релевантни ставки наместо решетка-приказ</string>
     <string name="pref_developer_link_description">Напредни и експериментални функции</string>
     <string name="discovered_servers_empty">Не се пронајдени сервери на локалната мрежа.</string>
-    <string name="login_help_description">Emby бара сервер за поврзување. Прегледајте ја нашата документација на docs.jellyfin.org или скенирајте QR код да започнете со Emby.</string>
+    <string name="login_help_description">Emby бара сервер за поврзување. Прегледајте ја нашата документација на emby.media или скенирајте QR код да започнете со Emby.</string>
     <string name="lbl_hide_unwatched_count">Сокриј бројчаник за негледани</string>
     <string name="user_picker_last_user_summary">Користи ја последната активна сметка</string>
     <string name="saved_servers">Зачувани сервери</string>

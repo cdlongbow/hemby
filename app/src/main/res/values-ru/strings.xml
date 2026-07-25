@@ -283,7 +283,7 @@
     <string name="lbl_sign_out_content">Требуется вход при следующем обращении</string>
     <string name="lbl_remove_user_content">Удалить учётную запись</string>
     <string name="lbl_manage_servers">Управление серверами</string>
-    <string name="login_help_description">Emby требуется подключение к серверу. Просмотрите нашу документацию на docs.jellyfin.org, или сканируйте QR-код, чтобы начать работу с Emby.</string>
+    <string name="login_help_description">Emby требуется подключение к серверу. Просмотрите нашу документацию на emby.media, или сканируйте QR-код, чтобы начать работу с Emby.</string>
     <string name="enable_smart_view_description">Умный экран показывает соответствующие элементы вместо сетки</string>
     <string name="lbl_remove_users">Также изымаются все связанные учётные записи</string>
     <string name="login_help_title">Нужна помощь\?</string>

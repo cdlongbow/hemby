@@ -294,7 +294,7 @@
     <string name="pref_playback_description">Video, subtitri, tiešraides tv, tālāk gaidāms</string>
     <string name="discovered_servers_title">Atrastie serveri</string>
     <string name="connect_manually_by_address">ievadiet servera adresi</string>
-    <string name="login_help_description">Lai izveidotu savienojumu ar Emby, ir nepieciešams serveris. Apmeklējiet mūsu dokumentāciju vietnē docs.jellyfin.org vai skenējiet QR kodu, lai sāktu lietot Emby.</string>
+    <string name="login_help_description">Lai izveidotu savienojumu ar Emby, ir nepieciešams serveris. Apmeklējiet mūsu dokumentāciju vietnē emby.media vai skenējiet QR kodu, lai sāktu lietot Emby.</string>
     <string name="user_picker_last_user_title">Pēdējo reizi izmantots</string>
     <string name="licenses_link">Licences</string>
     <string name="home_section_active_recordings">Aktīvie ieraksti</string>

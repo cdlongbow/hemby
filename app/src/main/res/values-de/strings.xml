@@ -273,7 +273,7 @@
     <string name="server_field_empty">Das Adressfeld darf nicht leer sein</string>
     <string name="server_connection_failed">Verbindung zum Server konnte nicht hergestellt werden</string>
     <string name="server_connecting">Verbinden mit %1$s</string>
-    <string name="login_help_description">Emby benötigt einen Server, mit dem eine Verbindung hergestellt werden kann. Besuche unsere Dokumentation unter docs.jellyfin.org oder scanne den QR-Code, um deine ersten Schritte mit Emby zu machen.</string>
+    <string name="login_help_description">Emby benötigt einen Server, mit dem eine Verbindung hergestellt werden kann. Besuche unsere Dokumentation unter emby.media oder scanne den QR-Code, um deine ersten Schritte mit Emby zu machen.</string>
     <string name="login_help_title">Brauchst du Hilfe\?</string>
     <string name="connect_manually_by_address">Server-Adresse eingeben</string>
     <string name="discovered_servers_empty">Es wurden keine Server im lokalen Netzwerk gefunden.</string>

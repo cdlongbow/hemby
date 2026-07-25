@@ -273,7 +273,7 @@
     <string name="server_field_empty">முகவரி காலியாக இருக்க முடியாது</string>
     <string name="server_connection_failed">சேவையகத்துடன் இணைக்க முடியவில்லை</string>
     <string name="server_connecting">%1$s உடன் இணைக்கிறது</string>
-    <string name="login_help_description">ஜெல்லிஃபினுடன் இணைக்க ஒரு சேவையகம் தேவை. எங்கள் ஆவணங்களை docs.jellyfin.org இல் பார்வையிடவும் அல்லது ஜெல்லிஃபினுடன் தொடங்க QR குறியீட்டை ஸ்கேன் செய்யவும்.</string>
+    <string name="login_help_description">ஜெல்லிஃபினுடன் இணைக்க ஒரு சேவையகம் தேவை. எங்கள் ஆவணங்களை emby.media இல் பார்வையிடவும் அல்லது ஜெல்லிஃபினுடன் தொடங்க QR குறியீட்டை ஸ்கேன் செய்யவும்.</string>
     <string name="login_help_title">உதவி தேவை\?</string>
     <string name="connect_manually_by_address">சேவையக முகவரியை உள்ளிடவும்</string>
     <string name="discovered_servers_empty">உள்ளூர் பிணையத்தில் எந்த சேவையகங்களும் கண்டுபிடிக்கப்படவில்லை.</string>

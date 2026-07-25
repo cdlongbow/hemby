@@ -262,10 +262,15 @@ class ServerRepositoryImpl(
 		brandingApi.getBrandingOptions().content
 	} catch (exception: InvalidContentException) {
 		Timber.w(exception, "Invalid branding options response, using default value")
-		BrandingOptionsDto(
-			loginDisclaimer = null,
-			customCss = null,
-			splashscreenEnabled = false,
-		)
+		defaultBrandingOptions()
+	} catch (exception: ApiClientException) {
+		Timber.w(exception, "Branding options unavailable, using default value")
+		defaultBrandingOptions()
 	}
+
+	private fun defaultBrandingOptions() = BrandingOptionsDto(
+		loginDisclaimer = null,
+		customCss = null,
+		splashscreenEnabled = false,
+	)
 }

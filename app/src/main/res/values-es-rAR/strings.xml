@@ -273,7 +273,7 @@
     <string name="server_field_empty">La dirección no puede estar vacía</string>
     <string name="server_connection_failed">No se puede conectar al servidor</string>
     <string name="server_connecting">Conectando a %1$s</string>
-    <string name="login_help_description">Emby requiere un servidor para conectarse. Visite nuestra documentación en docs.jellyfin.org o escanee el código QR para comenzar con Emby.</string>
+    <string name="login_help_description">Emby requiere un servidor para conectarse. Visite nuestra documentación en emby.media o escanee el código QR para comenzar con Emby.</string>
     <string name="login_help_title">Necesita Ayuda\?</string>
     <string name="connect_manually_by_address">Ingrese dirección del servidor</string>
     <string name="discovered_servers_empty">No se encontraron Servidores en la Red Local.</string>

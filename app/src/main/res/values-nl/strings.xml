@@ -290,7 +290,7 @@
     <string name="lbl_remove_user_content">Account verwijderen</string>
     <string name="lbl_remove_users">Dit zal ook alle bijbehorende accounts verwijderen</string>
     <string name="lbl_manage_servers">Servers beheren</string>
-    <string name="login_help_description">Emby vereist een server om mee te verbinden. Raadpleeg onze documentatie op docs.jellyfin.org of scan de QR-code om met Emby van start te gaan.</string>
+    <string name="login_help_description">Emby vereist een server om mee te verbinden. Raadpleeg onze documentatie op emby.media of scan de QR-code om met Emby van start te gaan.</string>
     <string name="login_help_title">Hulp nodig\?</string>
     <string name="connect_manually_by_address">Serveradres invoeren</string>
     <string name="discovered_servers_empty">Geen servers gevonden op het lokale netwerk.</string>

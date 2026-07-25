@@ -273,7 +273,7 @@
     <string name="lbl_always">Zawsze</string>
     <string name="pref_clock_display">Pokaż zegar</string>
     <string name="lbl_playback_control_ends">Koniec o %1$s</string>
-    <string name="login_help_description">Emby wymaga serwera do połączenia. Odwiedź naszą dokumentację na docs.jellyfin.org, lub zeskanuj kod QR, aby rozpocząć pracę z Emby.</string>
+    <string name="login_help_description">Emby wymaga serwera do połączenia. Odwiedź naszą dokumentację na emby.media, lub zeskanuj kod QR, aby rozpocząć pracę z Emby.</string>
     <string name="login_help_title">Potrzebuję pomocy\?</string>
     <string name="connect_manually_by_address">Wprowadź adres serwera</string>
     <string name="discovered_servers_empty">Nie wykryto serwerów w sieci lokalnej.</string>

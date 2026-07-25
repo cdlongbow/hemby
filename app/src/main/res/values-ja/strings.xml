@@ -260,7 +260,7 @@
     <string name="lbl_use_series_thumbnails_description">エピソードを表示する際、シリーズのサムネイルを使用する</string>
     <string name="lbl_use_series_thumbnails">シリーズのサムネイルを優先する</string>
     <string name="lbl_hide_unwatched_count">視聴済み</string>
-    <string name="login_help_description">Embyは、接続するためのサーバーを必要とします。docs.jellyfin.orgのドキュメントをご覧になるか、QRコードをスキャンして、Embyを始めてみてください。</string>
+    <string name="login_help_description">Embyは、接続するためのサーバーを必要とします。emby.mediaのドキュメントをご覧になるか、QRコードをスキャンして、Embyを始めてみてください。</string>
     <string name="login_help_title">お困りですか？</string>
     <string name="connect_manually_by_address">サーバーアドレスの入力</string>
     <string name="discovered_servers_empty">ローカルネットワーク上にサーバーが見つかりません。</string>

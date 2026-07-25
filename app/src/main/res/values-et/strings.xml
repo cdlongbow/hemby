@@ -282,7 +282,7 @@
         <item quantity="other">%1$s episoodi</item>
     </plurals>
     <string name="pref_developer_link_description">Täiustatud ja eksperimentaalsed funktsioonid</string>
-    <string name="login_help_description">Emby vajab ühenduse loomiseks serverit. Embyi kasutamise alustamiseks külastage meie dokumentatsiooni aadressil docs.jellyfin.org või skannige QR-koodi.</string>
+    <string name="login_help_description">Emby vajab ühenduse loomiseks serverit. Embyi kasutamise alustamiseks külastage meie dokumentatsiooni aadressil emby.media või skannige QR-koodi.</string>
     <string name="home_prefs">Avaleht</string>
     <string name="pref_crash_reports_disabled">Krahhiaruandeid ei esitata</string>
     <string name="item_delete_confirm_title">Kustuta üksus</string>

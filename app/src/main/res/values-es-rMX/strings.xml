@@ -299,7 +299,7 @@
     <string name="lbl_use_series_thumbnails">Preferir miniaturas de series</string>
     <string name="lbl_hide_unwatched_count">Cuando el contenido fue visto</string>
     <string name="pref_watched_indicator">Mostrar indicadores de contenido visto</string>
-    <string name="login_help_description">Emby requiere de un servidor al cual conectarse. Visita nuestra documentación en docs.jellyfin.org o escanea el código QR para comenzar a usar Emby.</string>
+    <string name="login_help_description">Emby requiere de un servidor al cual conectarse. Visita nuestra documentación en emby.media o escanea el código QR para comenzar a usar Emby.</string>
     <string name="login_help_title">¿Necesita ayuda\?</string>
     <string name="connect_manually_by_address">Introducir dirección del servidor</string>
     <string name="discovered_servers_empty">No se encontraron servidores en la red local.</string>

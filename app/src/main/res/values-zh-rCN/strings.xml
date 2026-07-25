@@ -275,7 +275,7 @@
     <string name="server_connecting">正在连接服务器 %1$s</string>
     <string name="lbl_user_server">%1$s 于 %2$s</string>
     <string name="lbl_user_last_used">上次在 %1$s 于 %2$s 使用</string>
-    <string name="login_help_description">Emby需要服务器进行连接。 请访问docs.jellyfin.org或扫描二维码来阅读相关文档，以开始使用Emby。</string>
+    <string name="login_help_description">Emby需要服务器进行连接。 请访问emby.media或扫描二维码来阅读相关文档，以开始使用Emby。</string>
     <string name="login_help_title">需要帮助？</string>
     <string name="connect_manually_by_address">输入服务器地址</string>
     <string name="discovered_servers_empty">在本地网络上未发现服务器。</string>

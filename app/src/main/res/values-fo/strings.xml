@@ -185,7 +185,7 @@
     <string name="discovered_servers_empty">Fann ongar ambætarar á nærneti.</string>
     <string name="connect_manually_by_address">Inntøppa ambætaraadressu</string>
     <string name="login_help_title">Tørvar tær hjálp?</string>
-    <string name="login_help_description">Emby tørvar at sambindast til ein ambætara. Sí skjalfestingina á docs.jellyfin.org ella skanna QR-kotuna til tess at koma ígongd við Emby.</string>
+    <string name="login_help_description">Emby tørvar at sambindast til ein ambætara. Sí skjalfestingina á emby.media ella skanna QR-kotuna til tess at koma ígongd við Emby.</string>
     <string name="auto_sign_in">Sjálvvirkandi innritan</string>
     <string name="user_picker_disable_title">Óvirkja</string>
     <string name="user_picker_disable_summary">Vís innritan hvørja ferð</string>

@@ -334,7 +334,7 @@
     <string name="lbl_use_series_thumbnails_description">Χρήση μικρογραφιών σειρών κατά την απεικόνιση των επεισοδίων</string>
     <string name="lbl_use_series_thumbnails">Προτίμηση μικρογραφιών σειρών</string>
     <string name="pref_watched_indicator">Εμφάνιση δεικτών \"Έχουν παρακολουθηθεί\"</string>
-    <string name="login_help_description">Το Emby χρειάζεται έναν διακομιστή για να συνδεθεί με αυτόν. Επισκεφτείτε την τεκμηρίωσή μας στο docs.jellyfin.org ή σκανάρετε τον κωδικό QR για να ξεκινήσετε με το Emby.</string>
+    <string name="login_help_description">Το Emby χρειάζεται έναν διακομιστή για να συνδεθεί με αυτόν. Επισκεφτείτε την τεκμηρίωσή μας στο emby.media ή σκανάρετε τον κωδικό QR για να ξεκινήσετε με το Emby.</string>
     <string name="login_help_title">Χρειάζεστε βοήθεια\?</string>
     <string name="connect_manually_by_address">Εισάγετε τη διεύθυνση του διακομιστή</string>
     <string name="discovered_servers_empty">Δε βρέθηκαν διακομιστές στο τοπικό δίκτυο.</string>

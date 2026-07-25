@@ -282,7 +282,7 @@
     <string name="lbl_use_series_thumbnails">Дајте предност сличицама серије</string>
     <string name="lbl_hide_unwatched_count">Када је одгледано</string>
     <string name="pref_watched_indicator">Прикажи индикаторе за одгледано</string>
-    <string name="login_help_description">Emby захтева сервер за повезивање. Посетите нашу документацију на docs.jellyfin.org или скенирајте QR код да бисте започели са Emby-ом.</string>
+    <string name="login_help_description">Emby захтева сервер за повезивање. Посетите нашу документацију на emby.media или скенирајте QR код да бисте започели са Emby-ом.</string>
     <string name="login_help_title">Потребна Вам је помоћ\?</string>
     <string name="connect_manually_by_address">Унесите адресу сервера</string>
     <string name="discovered_servers_empty">Није пронађен ниједан сервер на локалној мрежи.</string>

@@ -290,7 +290,7 @@
     <string name="lbl_remove_user_content">Rimuovi account</string>
     <string name="lbl_remove_users">Questo rimuoverà anche tutti gli utenti associati</string>
     <string name="lbl_manage_servers">Gestisci i server</string>
-    <string name="login_help_description">Emby ha bisogno di un server a cui connettersi. Visita la nostra documentazione su docs.jellyfin.org o scansiona il codice QR per iniziare con Emby.</string>
+    <string name="login_help_description">Emby ha bisogno di un server a cui connettersi. Visita la nostra documentazione su emby.media o scansiona il codice QR per iniziare con Emby.</string>
     <string name="login_help_title">Hai bisogno d\'aiuto\?</string>
     <string name="connect_manually_by_address">Inserisci l\'indirizzo del server</string>
     <string name="discovered_servers_empty">Nessun server trovato nella rete locale.</string>

@@ -273,7 +273,7 @@
     <string name="server_field_empty">Az elérhetőség nem lehet üres</string>
     <string name="server_connection_failed">Nem sikerült csatlakozni a szerverhez</string>
     <string name="server_connecting">Csatlakozás a következőhöz: %1$s</string>
-    <string name="login_help_description">A Emby szerverre van szüksége a kapcsolat létrehozásához. Látogassa meg dokumentációnkat a docs.jellyfin.org címen, vagy olvassa be a QR-kódot a Emby használatának megkezdéséhez.</string>
+    <string name="login_help_description">A Emby szerverre van szüksége a kapcsolat létrehozásához. Látogassa meg dokumentációnkat a emby.media címen, vagy olvassa be a QR-kódot a Emby használatának megkezdéséhez.</string>
     <string name="login_help_title">Kell segítség\?</string>
     <string name="connect_manually_by_address">Szerver címének megadása</string>
     <string name="discovered_servers_empty">Nem található szerverek a helyi hálózaton.</string>

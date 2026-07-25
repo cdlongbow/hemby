@@ -338,7 +338,7 @@
     <string name="user_picker_disable_summary">Uvijek prikaži ekran za prijavu</string>
     <string name="user_picker_disable_title">Onemogući</string>
     <string name="saved_servers">Spremljeni poslužitelji</string>
-    <string name="login_help_description">Emby zahtijeva poslužitelj za povezivanje. Posjetite našu dokumentaciju na docs.jellyfin.org ili skenirajte QR kôd za početak rada s Embyom.</string>
+    <string name="login_help_description">Emby zahtijeva poslužitelj za povezivanje. Posjetite našu dokumentaciju na emby.media ili skenirajte QR kôd za početak rada s Embyom.</string>
     <string name="login_help_title">Trebate pomoć\?</string>
     <string name="lbl_sign_out">Odjava</string>
     <string name="help">Pomoć</string>

@@ -363,7 +363,7 @@
     <string name="pref_developer_link_description">Papildomos ir ekspermentinės galimybės</string>
     <string name="discovered_servers_empty">Lokaliame tinkle serverių nerasta.</string>
     <string name="pref_watched_indicator">Rodyti \"peržiūrėtų\" indikatorius</string>
-    <string name="login_help_description">„Emby“ reikia serverio, prie kurio būtų galima prisijungti. Apsilankykite mūsų dokumentuose adresu docs.jellyfin.org arba nuskaitykite QR kodą ir pradėkite naudotis „Emby“.</string>
+    <string name="login_help_description">„Emby“ reikia serverio, prie kurio būtų galima prisijungti. Apsilankykite mūsų dokumentuose adresu emby.media arba nuskaitykite QR kodą ir pradėkite naudotis „Emby“.</string>
     <string name="connect_manually_by_address">Įrašykite serverio adresą</string>
     <string name="lbl_use_series_thumbnails_description">Rodydami serijas naudokite serialų miniatiūras</string>
     <string name="user_picker_last_user_summary">Naudoti paskutinę aktyvią paskyrą</string>

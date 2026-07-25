@@ -282,7 +282,7 @@
     <string name="lbl_use_series_thumbnails">Preferă miniaturile de serial</string>
     <string name="lbl_hide_unwatched_count">Când articolul este vizionat</string>
     <string name="pref_watched_indicator">Afișează indicatorii de vizionare</string>
-    <string name="login_help_description">Emby necesită un server pentru a vă conecta. Vizitează documentația noastră la docs.jellyfin.org sau scanează codul QR pentru a începe să utilizezi Emby.</string>
+    <string name="login_help_description">Emby necesită un server pentru a vă conecta. Vizitează documentația noastră la emby.media sau scanează codul QR pentru a începe să utilizezi Emby.</string>
     <string name="login_help_title">Aveți nevoie de ajutor\?</string>
     <string name="connect_manually_by_address">Introduceți adresa serverului</string>
     <string name="discovered_servers_empty">Nu s-au găsit servere în network-ul locală.</string>

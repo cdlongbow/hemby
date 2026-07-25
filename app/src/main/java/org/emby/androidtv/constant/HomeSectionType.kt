@@ -6,7 +6,7 @@ import org.jellyfin.preference.PreferenceEnum
 /**
  * All possible homesections, "synced" with emby-web.
  *
- * https://github.com/jellyfin/jellyfin-web/blob/master/src/components/homesections/homesections.js
+ * Ordered list of home sections.
  */
 enum class HomeSectionType(
 	override val serializedName: String,

@@ -390,7 +390,7 @@
     <string name="user_picker_disable_title">Poista käytöstä</string>
     <string name="lbl_use_series_thumbnails_description">Käytä sarjojen thumbnail-kuvia näytettäesä jaksoja</string>
     <string name="lbl_hide_unwatched_count">Kun nimike on katsottu</string>
-    <string name="login_help_description">Emby tarvitsee palvelimen, johon yhdistää. Lue lisää Embyin käytön aloituksesta osoitteesta docs.jellyfin.org tai lue QR-koodi.</string>
+    <string name="login_help_description">Emby tarvitsee palvelimen, johon yhdistää. Lue lisää Embyin käytön aloituksesta osoitteesta emby.media tai lue QR-koodi.</string>
     <string name="login_help_title">Tarvitsetko apua\?</string>
     <string name="connect_manually_by_address">Syötä palvelimen osoite</string>
     <string name="discovered_servers_empty">Paikallisesta verkosta ei löytynyt palvelimia.</string>

@@ -298,7 +298,7 @@
     <string name="auto_sign_in">Masuk otomatis</string>
     <string name="user_picker_disable_summary">Selalu munculkan tampilan sign in</string>
     <string name="who_is_watching">Siapa yang sedang menonton\?</string>
-    <string name="login_help_description">Emby membutuhkan server untuk terhubung. Kunjungi dokumentasi kami di docs.jellyfin.org atau pindai kode QR untuk memulai dengan Emby.</string>
+    <string name="login_help_description">Emby membutuhkan server untuk terhubung. Kunjungi dokumentasi kami di emby.media atau pindai kode QR untuk memulai dengan Emby.</string>
     <string name="pref_watched_indicator">Munculkan indikator yang telah ditonton</string>
     <string name="welcome_title">Selamat datang di Emby!</string>
     <string name="help">Bantuan</string>

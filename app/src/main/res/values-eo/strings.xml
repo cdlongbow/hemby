@@ -346,7 +346,7 @@
     <string name="no_user_warning">Ni ne povis trovi ajnajn uzantojn!
 \nAldoni novan konton premante la butonon \"Aldoni konton\".</string>
     <string name="welcome_content">Konekti al via servilo por komenci.</string>
-    <string name="login_help_description">Emby bezonas servilon por konektiĝi. Viziti nian dokumentaron ĉe docs.jellyfin.org aŭ skani la QR-kodon por komenci kun Emby.</string>
+    <string name="login_help_description">Emby bezonas servilon por konektiĝi. Viziti nian dokumentaron ĉe emby.media aŭ skani la QR-kodon por komenci kun Emby.</string>
     <string name="enable_smart_view_description">Inteligenta ekrano montras koncernajn aĵojn anstataŭ krado</string>
     <string name="lbl_remove_users">Ĉi tio ankaŭ forigos ĉiujn asocigitajn kontojn</string>
     <string name="episode_missing_message_2">Ĉi tiu epizodo mankas el via plurmediteko. Ludado estos haltata.</string>

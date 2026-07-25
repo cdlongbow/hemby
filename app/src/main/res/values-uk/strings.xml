@@ -377,7 +377,7 @@
     <string name="lbl_use_series_thumbnails">Надавати перевагу мініатюрам серіалів</string>
     <string name="lbl_hide_unwatched_count">Коли елемент переглянуто</string>
     <string name="pref_watched_indicator">Відображати індикатор перегляду</string>
-    <string name="login_help_description">Emby вимагає наявності сервера, до якого підʼєднуватиметься. Радимо скористатися документацією на docs.jellyfin.org або сканувати QR код для початку роботи з Emby.</string>
+    <string name="login_help_description">Emby вимагає наявності сервера, до якого підʼєднуватиметься. Радимо скористатися документацією на emby.media або сканувати QR код для початку роботи з Emby.</string>
     <string name="login_help_title">Потрібна допомога\?</string>
     <string name="connect_manually_by_address">Введіть адресу сервера</string>
     <string name="discovered_servers_empty">В локальній мережі не виявлено серверів.</string>

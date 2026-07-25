@@ -328,7 +328,7 @@
     <string name="discovered_servers_empty">喺區域網路入面搵唔到伺服器。</string>
     <string name="connect_manually_by_address">輸入伺服器位址</string>
     <string name="login_help_title">需要幫手？</string>
-    <string name="login_help_description">Emby 需要連線去伺服器先用得。可以去 docs.jellyfin.org 睇吓說明文檔，或者掃二維碼(QR code)開始使用 Emby。</string>
+    <string name="login_help_description">Emby 需要連線去伺服器先用得。可以去 emby.media 睇吓說明文檔，或者掃二維碼(QR code)開始使用 Emby。</string>
     <string name="pref_watched_indicator">顯示已睇標示</string>
     <string name="lbl_hide_unwatched_count">當項目已經睇咗嗰陣</string>
     <string name="lbl_hide_watched_checkmark">當仲有集數未睇嗰陣</string>

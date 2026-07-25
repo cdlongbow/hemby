@@ -27,7 +27,7 @@ class PreferencesRepository(
 
 	suspend fun onSessionChanged() {
 		// Note: Do not run parallel as the server can't deal with that
-		// Relevant server issue: https://github.com/jellyfin/jellyfin/issues/5261
+		// When normalizing remote subnets, treat IPv4 mapped addresses as regular IPv4
 		liveTvPreferences.update()
 		userSettingPreferences.update()
 

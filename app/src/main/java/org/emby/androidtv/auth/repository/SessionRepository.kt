@@ -153,9 +153,13 @@ class SessionRepositoryImpl(
 			}
 
 			// Update crash reporting URL
-			val crashReportUrl = userApiClient.clientLogApi.logFileUrl()
-			telemetryPreferences[TelemetryPreferences.crashReportUrl] = crashReportUrl
-			telemetryPreferences[TelemetryPreferences.crashReportToken] = session.accessToken
+			try {
+				val crashReportUrl = userApiClient.clientLogApi.logFileUrl()
+				telemetryPreferences[TelemetryPreferences.crashReportUrl] = crashReportUrl
+				telemetryPreferences[TelemetryPreferences.crashReportToken] = session.accessToken
+			} catch (@Suppress("TooGenericExceptionCaught") err: Exception) {
+				Timber.w(err, "Crash report URL unavailable (not supported by server)")
+			}
 		} else {
 			userRepository.setCurrentUser(null)
 			serverRepository.setCurrentServer(null)
