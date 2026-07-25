@@ -96,8 +96,8 @@ fun OsdInfoOverlay(
 
         Box(
             modifier = Modifier
-                .align(Alignment.BottomStart)
-                .padding(start = 16.dp, bottom = 80.dp)
+                .align(Alignment.BottomEnd)
+                .padding(end = 16.dp, bottom = 80.dp)
         ) {
             Column(
                 verticalArrangement = Arrangement.spacedBy(4.dp),
