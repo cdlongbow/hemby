@@ -950,6 +950,19 @@ public class PlaybackController implements PlaybackControllerNotifiable {
         }
     }
 
+    public void playFromList(List<BaseItemDto> items, int index) {
+        Timber.d("playFromList called with index: %d out of %d items.", index, items.size());
+        if (index < 0 || index >= items.size()) return;
+        stop();
+        playbackRetries = 0;
+        mItems = items;
+        mCurrentIndex = index;
+        videoQueueManager.getValue().setCurrentVideoQueue(items);
+        videoQueueManager.getValue().setCurrentMediaPosition(index);
+        spinnerOff = false;
+        play(0);
+    }
+
     public void fastForward() {
         UserSettingPreferences prefs = KoinJavaComponent.<UserSettingPreferences>get(UserSettingPreferences.class);
         skip(prefs.get(UserSettingPreferences.Companion.getSkipForwardLength()));

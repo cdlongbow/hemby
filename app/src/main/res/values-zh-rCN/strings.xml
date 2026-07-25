@@ -673,4 +673,12 @@
     <string name="playback_speed_2_50">2.50x</string>
     <string name="playback_speed_2_75">2.75x</string>
     <string name="playback_speed_3_00">3.00x</string>
+    <string name="lbl_intro">片头</string>
+    <string name="lbl_outro">片尾</string>
+    <string name="lbl_rewind">快退</string>
+    <string name="lbl_fast_forward">快进</string>
+    <string name="lbl_prev_ep_confirm">上一集</string>
+    <string name="lbl_next_ep_confirm">下一集</string>
+    <string name="lbl_first_episode">已是第一集</string>
+    <string name="lbl_last_episode">已是最后一集</string>
 </resources>

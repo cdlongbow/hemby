@@ -273,6 +273,15 @@ object BrowsingUtils {
 	)
 
 	@JvmStatic
+	fun createSeriesEpisodesRequest(seriesId: UUID) = GetItemsRequest(
+		fields = ItemRepository.itemFields,
+		parentId = seriesId,
+		includeItemTypes = setOf(BaseItemKind.EPISODE),
+		sortBy = setOf(ItemSortBy.PARENT_INDEX_NUMBER, ItemSortBy.INDEX_NUMBER),
+		recursive = true,
+	)
+
+	@JvmStatic
 	fun createBrowseGridItemsRequest(parent: BaseItemDto): GetItemsRequest {
 		val baseRequest = GetItemsRequest(
 			fields = ItemRepository.itemFields,

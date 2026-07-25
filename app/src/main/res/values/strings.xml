@@ -683,4 +683,12 @@
     <string name="playback_speed_2_50">2.50x</string>
     <string name="playback_speed_2_75">2.75x</string>
     <string name="playback_speed_3_00">3.00x</string>
+    <string name="lbl_intro">Intro</string>
+    <string name="lbl_outro">Outro</string>
+    <string name="lbl_rewind">Rewind</string>
+    <string name="lbl_fast_forward">Fast forward</string>
+    <string name="lbl_prev_ep_confirm">Previous episode</string>
+    <string name="lbl_next_ep_confirm">Next episode</string>
+    <string name="lbl_first_episode">Already the first episode</string>
+    <string name="lbl_last_episode">Already the last episode</string>
 </resources>

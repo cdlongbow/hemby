@@ -9,6 +9,7 @@ import android.media.AudioManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,6 +52,8 @@ import org.jellyfin.androidtv.ui.ObservableHorizontalScrollView;
 import org.jellyfin.androidtv.ui.ObservableScrollView;
 import org.jellyfin.androidtv.ui.ProgramGridCell;
 import org.jellyfin.androidtv.ui.ScrollViewListener;
+import org.jellyfin.androidtv.ui.browsing.BrowsingUtils;
+import org.jellyfin.androidtv.ui.itemhandling.BaseItemDtoBaseRowItem;
 import org.jellyfin.androidtv.ui.itemhandling.ChapterItemInfoBaseRowItem;
 import org.jellyfin.androidtv.ui.itemhandling.ItemRowAdapter;
 import org.jellyfin.androidtv.ui.livetv.LiveTvGuide;
@@ -60,6 +63,7 @@ import org.jellyfin.androidtv.ui.livetv.TvManager;
 import org.jellyfin.androidtv.ui.navigation.Destinations;
 import org.jellyfin.androidtv.ui.navigation.NavigationRepository;
 import org.jellyfin.androidtv.ui.playback.overlay.LeanbackOverlayFragment;
+import org.jellyfin.androidtv.ui.playback.overlay.VideoPlayerAdapter;
 import org.jellyfin.androidtv.ui.presentation.CardPresenter;
 import org.jellyfin.androidtv.ui.presentation.ChannelCardPresenter;
 import org.jellyfin.androidtv.ui.presentation.MutableObjectAdapter;
@@ -76,6 +80,7 @@ import org.jellyfin.androidtv.util.sdk.BaseItemExtensionsKt;
 import org.jellyfin.sdk.model.api.BaseItemDto;
 import org.jellyfin.sdk.model.api.BaseItemKind;
 import org.jellyfin.sdk.model.api.ChapterInfo;
+import org.jellyfin.sdk.model.api.request.GetItemsRequest;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -91,6 +96,7 @@ public class CustomPlaybackOverlayFragment extends Fragment implements LiveTvGui
 
     private RowsSupportFragment mPopupRowsFragment;
     private ListRow mChapterRow;
+    private ListRow mEpisodeRow;
     private ArrayObjectAdapter mPopupRowAdapter;
     private PositionableListRowPresenter mPopupRowPresenter;
 
@@ -123,6 +129,9 @@ public class CustomPlaybackOverlayFragment extends Fragment implements LiveTvGui
     private boolean mFadeEnabled = false;
     private boolean mIsVisible = false;
     private boolean mPopupPanelVisible = false;
+    private boolean mEpisodeNavOverlayVisible = false;
+    private boolean mEpisodeNavIsPrevious = false;
+    private TextView mEpisodeNavOverlay;
     private boolean navigating = false;
 
     protected LeanbackOverlayFragment leanbackOverlayFragment;
@@ -382,6 +391,50 @@ public class CustomPlaybackOverlayFragment extends Fragment implements LiveTvGui
             } else if (item instanceof BaseItemDto) {
                 hidePopupPanel();
                 switchChannel(((BaseItemDto) item).getId());
+            } else if (item instanceof BaseItemDtoBaseRowItem) {
+                BaseItemDtoBaseRowItem rowItem = (BaseItemDtoBaseRowItem) item;
+                BaseItemDto episode = rowItem.getBaseItem();
+                if (episode != null && episode.getType() == BaseItemKind.EPISODE) {
+                    hidePopupPanel();
+                    PlaybackController pc = playbackControllerContainer.getValue().getPlaybackController();
+                    if (pc.mItems != null) {
+                        for (int i = 0; i < pc.mItems.size(); i++) {
+                            if (pc.mItems.get(i).getId().equals(episode.getId())) {
+                                // Found in current queue - navigate to it
+                                int ndx = i;
+                                mHandler.post(() -> {
+                                    pc.stop();
+                                    pc.mCurrentIndex = ndx;
+                                    videoQueueManager.getValue().setCurrentMediaPosition(ndx);
+                                    pc.play(0);
+                                });
+                                return;
+                            }
+                        }
+                    }
+                    // Not in current queue - use full episode list from the loaded row
+                    if (mEpisodeRow != null) {
+                        androidx.leanback.widget.ObjectAdapter epAdapter = mEpisodeRow.getAdapter();
+                        java.util.ArrayList<BaseItemDto> allEpisodes = new java.util.ArrayList<>();
+                        int targetIndex = -1;
+                        for (int i = 0; i < epAdapter.size(); i++) {
+                            Object epObj = epAdapter.get(i);
+                            if (epObj instanceof BaseItemDtoBaseRowItem) {
+                                BaseItemDto ep = ((BaseItemDtoBaseRowItem) epObj).getBaseItem();
+                                if (ep != null) {
+                                    allEpisodes.add(ep);
+                                    if (ep.getId().equals(episode.getId())) {
+                                        targetIndex = i;
+                                    }
+                                }
+                            }
+                        }
+                        if (targetIndex >= 0) {
+                            int finalTarget = targetIndex;
+                            mHandler.post(() -> pc.playFromList(allEpisodes, finalTarget));
+                        }
+                    }
+                }
             }
         }
     };
@@ -589,12 +642,53 @@ public class CustomPlaybackOverlayFragment extends Fragment implements LiveTvGui
                     if (!mIsVisible) {
                         if (!playbackControllerContainer.getValue().getPlaybackController().isLiveTv()) {
                             if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
+                                playbackControllerContainer.getValue().getPlaybackController().fastForward();
                                 setFadingEnabled(true);
                                 return true;
                             }
 
                             if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
+                                playbackControllerContainer.getValue().getPlaybackController().rewind();
                                 setFadingEnabled(true);
+                                return true;
+                            }
+
+                            // UP/DOWN for previous/next episode with confirmation
+                            VideoPlayerAdapter adapter = leanbackOverlayFragment.getPlayerGlue().getPlayerAdapter();
+                            if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
+                                if (adapter.hasPreviousItem()) {
+                                    showEpisodeNavOverlay(true);
+                                } else {
+                                    showToastOverlay(getString(R.string.lbl_first_episode));
+                                }
+                                return true;
+                            }
+
+                            if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+                                if (adapter.hasNextItem()) {
+                                    showEpisodeNavOverlay(false);
+                                } else {
+                                    showToastOverlay(getString(R.string.lbl_last_episode));
+                                }
+                                return true;
+                            }
+                        }
+
+                        if (mEpisodeNavOverlayVisible) {
+                            if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER) {
+                                mEpisodeNavOverlayVisible = false;
+                                if (mEpisodeNavOverlay != null) mEpisodeNavOverlay.setVisibility(View.GONE);
+                                VideoPlayerAdapter navAdapter = leanbackOverlayFragment.getPlayerGlue().getPlayerAdapter();
+                                if (mEpisodeNavIsPrevious) {
+                                    navAdapter.previous();
+                                } else {
+                                    navAdapter.next();
+                                }
+                                return true;
+                            }
+                            if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_BUTTON_B || keyCode == KeyEvent.KEYCODE_ESCAPE) {
+                                mEpisodeNavOverlayVisible = false;
+                                if (mEpisodeNavOverlay != null) mEpisodeNavOverlay.setVisibility(View.GONE);
                                 return true;
                             }
                         }
@@ -1155,6 +1249,20 @@ public class CustomPlaybackOverlayFragment extends Fragment implements LiveTvGui
         }, 500);
     }
 
+    public void showEpisodeSelector() {
+        showChapterPanel();
+        // Remove chapter row if present so only episodes are shown
+        if (mChapterRow != null) {
+            mPopupRowAdapter.remove(mChapterRow);
+            mChapterRow = null;
+        }
+        prepareEpisodeAdapter();
+        mHandler.postDelayed(() -> {
+            if (!getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) return;
+            mPopupPanelVisible = true;
+        }, 500);
+    }
+
     private int getCurrentChapterIndex(BaseItemDto item, long pos) {
         int ndx = 0;
         Timber.d("*** looking for chapter at pos: %d", pos);
@@ -1167,6 +1275,56 @@ public class CustomPlaybackOverlayFragment extends Fragment implements LiveTvGui
         }
         return ndx - 1;
     }
+
+    private void showEpisodeNavOverlay(boolean isPrevious) {
+        mEpisodeNavIsPrevious = isPrevious;
+        mEpisodeNavOverlayVisible = true;
+        if (mEpisodeNavOverlay == null) {
+            mEpisodeNavOverlay = new TextView(requireContext());
+            mEpisodeNavOverlay.setBackgroundColor(Color.parseColor("#B3747474"));
+            mEpisodeNavOverlay.setTextColor(Color.parseColor("#DDDDDD"));
+            mEpisodeNavOverlay.setTextSize(20);
+            mEpisodeNavOverlay.setGravity(Gravity.CENTER);
+            mEpisodeNavOverlay.setPadding(24, 12, 24, 12);
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+            params.addRule(RelativeLayout.CENTER_IN_PARENT);
+            binding.getRoot().addView(mEpisodeNavOverlay, params);
+        }
+        mEpisodeNavOverlay.setText(isPrevious ? getString(R.string.lbl_prev_ep_confirm) : getString(R.string.lbl_next_ep_confirm));
+        mEpisodeNavOverlay.setVisibility(View.VISIBLE);
+        mEpisodeNavOverlay.requestFocus();
+        mHandler.removeCallbacks(mEpisodeNavTimeoutRunnable);
+        mHandler.postDelayed(mEpisodeNavTimeoutRunnable, 2000);
+    }
+
+    private void showToastOverlay(String text) {
+        if (mEpisodeNavOverlay == null) {
+            mEpisodeNavOverlay = new TextView(requireContext());
+            mEpisodeNavOverlay.setBackgroundColor(Color.parseColor("#B3747474"));
+            mEpisodeNavOverlay.setTextColor(Color.parseColor("#DDDDDD"));
+            mEpisodeNavOverlay.setTextSize(20);
+            mEpisodeNavOverlay.setGravity(Gravity.CENTER);
+            mEpisodeNavOverlay.setPadding(24, 12, 24, 12);
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+            params.addRule(RelativeLayout.CENTER_IN_PARENT);
+            binding.getRoot().addView(mEpisodeNavOverlay, params);
+        }
+        mEpisodeNavOverlay.setText(text);
+        mEpisodeNavOverlay.setVisibility(View.VISIBLE);
+        mHandler.removeCallbacks(mEpisodeNavTimeoutRunnable);
+        mHandler.postDelayed(mEpisodeNavTimeoutRunnable, 1500);
+    }
+
+    private Runnable mEpisodeNavTimeoutRunnable = () -> {
+        mEpisodeNavOverlayVisible = false;
+        if (mEpisodeNavOverlay != null) {
+            mEpisodeNavOverlay.setVisibility(View.GONE);
+        }
+    };
 
     public void toggleRecording(BaseItemDto item) {
         final BaseItemDto program = item.getCurrentProgram();
@@ -1268,6 +1426,7 @@ public class CustomPlaybackOverlayFragment extends Fragment implements LiveTvGui
                 prepareChannelAdapter();
             } else {
                 prepareChapterAdapter();
+                prepareEpisodeAdapter();
             }
         }
     }
@@ -1289,6 +1448,34 @@ public class CustomPlaybackOverlayFragment extends Fragment implements LiveTvGui
             mPopupRowAdapter.add(mChapterRow);
         }
 
+    }
+
+    private void prepareEpisodeAdapter() {
+        BaseItemDto item = playbackControllerContainer.getValue().getPlaybackController().getCurrentlyPlayingItem();
+        if (item == null || item.getType() != BaseItemKind.EPISODE) return;
+        UUID seriesId = item.getSeriesId();
+        if (seriesId == null) return;
+
+        GetItemsRequest query = BrowsingUtils.Companion.createSeriesEpisodesRequest(seriesId);
+
+        ItemRowAdapter episodeAdapter = new ItemRowAdapter(
+                requireContext(),
+                query,
+                0,
+                false,
+                true,
+                new CardPresenter(true, 110),
+                new MutableObjectAdapter<Row>()
+        );
+        episodeAdapter.setRetrieveFinishedListener(new EmptyResponse(getLifecycle()) {
+            @Override
+            public void onResponse() {
+                if (mEpisodeRow != null) mPopupRowAdapter.remove(mEpisodeRow);
+                mEpisodeRow = new ListRow(new HeaderItem(requireContext().getString(R.string.lbl_episodes)), episodeAdapter);
+                mPopupRowAdapter.add(mEpisodeRow);
+            }
+        });
+        episodeAdapter.Retrieve();
     }
 
     private void prepareChannelAdapter() {

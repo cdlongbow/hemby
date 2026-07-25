@@ -4,6 +4,7 @@ import static java.lang.Math.round;
 
 import android.content.Context;
 import android.os.Handler;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +34,6 @@ import org.jellyfin.androidtv.ui.playback.overlay.action.ClosedCaptionsAction;
 import org.jellyfin.androidtv.ui.playback.overlay.action.CustomAction;
 import org.jellyfin.androidtv.ui.playback.overlay.action.FastForwardAction;
 import org.jellyfin.androidtv.ui.playback.overlay.action.GuideAction;
-import org.jellyfin.androidtv.ui.playback.overlay.action.PlayPauseAction;
 import org.jellyfin.androidtv.ui.playback.overlay.action.PlaybackSpeedAction;
 import org.jellyfin.androidtv.ui.playback.overlay.action.PreviousLiveTvChannelAction;
 import org.jellyfin.androidtv.ui.playback.overlay.action.RecordAction;
@@ -45,6 +45,7 @@ import org.jellyfin.androidtv.ui.playback.overlay.action.SkipPreviousAction;
 import org.jellyfin.androidtv.ui.playback.overlay.action.ZoomAction;
 import org.jellyfin.androidtv.ui.playback.overlay.action.IntroAction;
 import org.jellyfin.androidtv.ui.playback.overlay.action.OutroAction;
+import org.jellyfin.androidtv.ui.playback.overlay.action.EpisodeAction;
 import org.jellyfin.androidtv.ui.playback.IntroOutroStore;
 import org.jellyfin.sdk.model.api.BaseItemDto;
 import org.jellyfin.androidtv.util.DateTimeExtensionsKt;
@@ -55,23 +56,22 @@ import java.time.temporal.ChronoUnit;
 
 public class CustomPlaybackTransportControlGlue extends PlaybackTransportControlGlue<VideoPlayerAdapter> {
 
-    // Normal playback actions
-    private PlayPauseAction playPauseAction;
+    // Primary actions
+    private EpisodeAction episodeAction;
+    private PlaybackSpeedAction playbackSpeedAction;
+    private ClosedCaptionsAction closedCaptionsAction;
+    private SelectAudioAction selectAudioAction;
+    private IntroAction introAction;
+    private OutroAction outroAction;
+
+    // Secondary actions
+    private ChapterAction chapterAction;
+    private ZoomAction zoomAction;
+    private SelectQualityAction selectQualityAction;
     private RewindAction rewindAction;
     private FastForwardAction fastForwardAction;
     private SkipPreviousAction skipPreviousAction;
     private SkipNextAction skipNextAction;
-    private SelectAudioAction selectAudioAction;
-    private ClosedCaptionsAction closedCaptionsAction;
-    private SelectQualityAction selectQualityAction;
-    private PlaybackSpeedAction playbackSpeedAction;
-    private ZoomAction zoomAction;
-    private ChapterAction chapterAction;
-
-    // Intro/Outro actions
-    private IntroAction introAction;
-    private OutroAction outroAction;
-    private IntroOutroStore introOutroStore = KoinJavaComponent.get(IntroOutroStore.class);
 
     // TV actions
     private PreviousLiveTvChannelAction previousLiveTvChannelAction;
@@ -82,6 +82,7 @@ public class CustomPlaybackTransportControlGlue extends PlaybackTransportControl
     private final PlaybackController playbackController;
     private ArrayObjectAdapter primaryActionsAdapter;
     private ArrayObjectAdapter secondaryActionsAdapter;
+    private IntroOutroStore introOutroStore = KoinJavaComponent.get(IntroOutroStore.class);
 
     // Injected views
     private TextView mEndsText = null;
@@ -132,7 +133,6 @@ public class CustomPlaybackTransportControlGlue extends PlaybackTransportControl
         final AbstractDetailsDescriptionPresenter detailsPresenter = new AbstractDetailsDescriptionPresenter() {
             @Override
             protected void onBindDescription(ViewHolder vh, Object item) {
-
             }
         };
         PlaybackTransportRowPresenter rowPresenter = new PlaybackTransportRowPresenter() {
@@ -174,9 +174,35 @@ public class CustomPlaybackTransportControlGlue extends PlaybackTransportControl
             }
 
             @Override
+            protected View onCreateActionButton(ViewGroup parent) {
+                Context ctx = parent.getContext();
+                TextView button = new TextView(ctx);
+                button.setBackgroundResource(R.drawable.button_text_bg);
+                button.setTextColor(ctx.getColorStateList(R.drawable.button_default_text));
+                button.setTextSize(14);
+                button.setGravity(Gravity.CENTER);
+                button.setPadding(
+                    ctx.getResources().getDimensionPixelSize(R.dimen.action_button_padding_horizontal),
+                    ctx.getResources().getDimensionPixelSize(R.dimen.action_button_padding_vertical),
+                    ctx.getResources().getDimensionPixelSize(R.dimen.action_button_padding_horizontal),
+                    ctx.getResources().getDimensionPixelSize(R.dimen.action_button_padding_vertical)
+                );
+                button.setMinWidth(ctx.getResources().getDimensionPixelSize(R.dimen.action_button_min_width));
+                button.setClickable(true);
+                button.setFocusable(true);
+                return button;
+            }
+
+            @Override
+            protected void onBindActionButton(View view, Action action, int actionIndex) {
+                if (view instanceof TextView && action.getLabel(0) != null) {
+                    ((TextView) view).setText(action.getLabel(0));
+                }
+            }
+
+            @Override
             protected void onProgressBarClicked(PlaybackTransportRowPresenter.ViewHolder vh) {
-                CustomPlaybackTransportControlGlue controlglue = CustomPlaybackTransportControlGlue.this;
-                controlglue.onActionClicked(controlglue.playPauseAction);
+                // No play/pause action, so do nothing on progress bar click
             }
 
             @Override
@@ -196,28 +222,38 @@ public class CustomPlaybackTransportControlGlue extends PlaybackTransportControl
     }
 
     private void initActions(Context context) {
-        playPauseAction = new PlayPauseAction(context);
-        rewindAction = new RewindAction(context);
-        fastForwardAction = new FastForwardAction(context);
-        skipPreviousAction = new SkipPreviousAction(context);
-        skipNextAction = new SkipNextAction(context);
-        selectAudioAction = new SelectAudioAction(context, this);
-        selectAudioAction.setLabels(new String[]{context.getString(R.string.lbl_audio_track)});
-        closedCaptionsAction = new ClosedCaptionsAction(context, this);
-        closedCaptionsAction.setLabels(new String[]{context.getString(R.string.lbl_subtitle_track)});
-        selectQualityAction = new SelectQualityAction(context, this, KoinJavaComponent.get(UserPreferences.class));
-        selectQualityAction.setLabels(new String[]{context.getString(R.string.lbl_quality_profile)});
+        // Primary actions
         playbackSpeedAction = new PlaybackSpeedAction(context, this, playbackController, KoinJavaComponent.get(UserPreferences.class));
         playbackSpeedAction.setLabels(new String[]{context.getString(R.string.lbl_playback_speed)});
-        zoomAction = new ZoomAction(context, this);
-        zoomAction.setLabels(new String[]{context.getString(R.string.lbl_zoom)});
-        chapterAction = new ChapterAction(context, this);
-        chapterAction.setLabels(new String[]{context.getString(R.string.lbl_chapters)});
-
+        closedCaptionsAction = new ClosedCaptionsAction(context, this);
+        closedCaptionsAction.setLabels(new String[]{context.getString(R.string.lbl_subtitle_track)});
+        selectAudioAction = new SelectAudioAction(context, this);
+        selectAudioAction.setLabels(new String[]{context.getString(R.string.lbl_audio_track)});
         introOutroStore = KoinJavaComponent.get(IntroOutroStore.class);
         introAction = new IntroAction(context, this, playbackController, introOutroStore);
+        introAction.setLabels(new String[]{context.getString(R.string.lbl_intro)});
         outroAction = new OutroAction(context, this, playbackController, introOutroStore);
+        outroAction.setLabels(new String[]{context.getString(R.string.lbl_outro)});
+        episodeAction = new EpisodeAction(context, this);
+        episodeAction.setLabels(new String[]{context.getString(R.string.lbl_episodes)});
 
+        // Secondary actions
+        chapterAction = new ChapterAction(context, this);
+        chapterAction.setLabels(new String[]{context.getString(R.string.lbl_chapters)});
+        zoomAction = new ZoomAction(context, this);
+        zoomAction.setLabels(new String[]{context.getString(R.string.lbl_zoom)});
+        selectQualityAction = new SelectQualityAction(context, this, KoinJavaComponent.get(UserPreferences.class));
+        selectQualityAction.setLabels(new String[]{context.getString(R.string.lbl_quality_profile)});
+        rewindAction = new RewindAction(context);
+        rewindAction.setLabels(new String[]{context.getString(R.string.lbl_rewind)});
+        fastForwardAction = new FastForwardAction(context);
+        fastForwardAction.setLabels(new String[]{context.getString(R.string.lbl_fast_forward)});
+        skipPreviousAction = new SkipPreviousAction(context);
+        skipPreviousAction.setLabels(new String[]{context.getString(R.string.lbl_previous_episode)});
+        skipNextAction = new SkipNextAction(context);
+        skipNextAction.setLabels(new String[]{context.getString(R.string.lbl_next_episode)});
+
+        // TV actions
         previousLiveTvChannelAction = new PreviousLiveTvChannelAction(context, this);
         previousLiveTvChannelAction.setLabels(new String[]{context.getString(R.string.lbl_prev_item)});
         channelBarChannelAction = new ChannelBarChannelAction(context, this);
@@ -247,67 +283,84 @@ public class CustomPlaybackTransportControlGlue extends PlaybackTransportControl
         if (secondaryActionsAdapter.size() > 0)
             secondaryActionsAdapter.clear();
 
-        // Primary Items
-        primaryActionsAdapter.add(playPauseAction);
         VideoPlayerAdapter playerAdapter = getPlayerAdapter();
+        BaseItemDto item = playbackController.getCurrentlyPlayingItem();
 
-        if (playerAdapter.canSeek()) {
-            primaryActionsAdapter.add(rewindAction);
-            primaryActionsAdapter.add(fastForwardAction);
+        // Update intro/outro with current item info
+        if (item != null) {
+            java.util.UUID seriesId = item.getSeriesId();
+            introAction.setSeriesId(seriesId);
+            outroAction.setSeriesId(seriesId);
+            long duration = playbackController.getDuration();
+            outroAction.setDuration(duration);
         }
 
+        // ---- Primary Actions ----
+        // 选集 (only if multi-episode)
+        boolean hasMultiEpisodes = playerAdapter.hasPreviousItem() || playerAdapter.hasNextItem();
+        if (hasMultiEpisodes) {
+            primaryActionsAdapter.add(episodeAction);
+        }
+
+        // 速度
+        if (!playerAdapter.isLiveTv()) {
+            primaryActionsAdapter.add(playbackSpeedAction);
+        }
+
+        // 字幕
         if (playerAdapter.hasSubs()) {
             primaryActionsAdapter.add(closedCaptionsAction);
         }
 
+        // 音轨
         if (playerAdapter.hasMultiAudio()) {
             primaryActionsAdapter.add(selectAudioAction);
         }
 
-        if (playerAdapter.isLiveTv()) {
-            primaryActionsAdapter.add(channelBarChannelAction);
-            primaryActionsAdapter.add(guideAction);
+        // 片头、片尾
+        if (!playerAdapter.isLiveTv()) {
+            primaryActionsAdapter.add(introAction);
+            primaryActionsAdapter.add(outroAction);
         }
 
-        // Secondary Items
+        // ---- Secondary Actions ----
+        // 章节
+        if (playerAdapter.hasChapters()) {
+            secondaryActionsAdapter.add(chapterAction);
+        }
+
+        // 缩放
+        secondaryActionsAdapter.add(zoomAction);
+
+        // 画质
+        if (!playerAdapter.isLiveTv()) {
+            secondaryActionsAdapter.add(selectQualityAction);
+        }
+
+        // 快退、快进
+        if (playerAdapter.canSeek()) {
+            secondaryActionsAdapter.add(rewindAction);
+            secondaryActionsAdapter.add(fastForwardAction);
+        }
+
+        // 上一集、下一集
+        if (playerAdapter.hasPreviousItem()) {
+            secondaryActionsAdapter.add(skipPreviousAction);
+        }
+        if (playerAdapter.hasNextItem()) {
+            secondaryActionsAdapter.add(skipNextAction);
+        }
+
+        // Live TV actions
         if (playerAdapter.isLiveTv()) {
+            secondaryActionsAdapter.add(channelBarChannelAction);
+            secondaryActionsAdapter.add(guideAction);
             secondaryActionsAdapter.add(previousLiveTvChannelAction);
             if (playerAdapter.canRecordLiveTv()) {
                 secondaryActionsAdapter.add(recordAction);
                 recordingStateChanged();
             }
         }
-
-        if (playerAdapter.hasPreviousItem()) {
-            secondaryActionsAdapter.add(skipPreviousAction);
-        }
-
-        if (playerAdapter.hasNextItem()) {
-            secondaryActionsAdapter.add(skipNextAction);
-        }
-
-        if (playerAdapter.hasChapters()) {
-            secondaryActionsAdapter.add(chapterAction);
-        }
-
-        if (!playerAdapter.isLiveTv()) {
-            secondaryActionsAdapter.add(playbackSpeedAction);
-            secondaryActionsAdapter.add(selectQualityAction);
-
-            // Intro/Outro marker actions
-            BaseItemDto item = playbackController.getCurrentlyPlayingItem();
-            if (item != null) {
-                java.util.UUID seriesId = item.getSeriesId();
-                introAction.setSeriesId(seriesId);
-                outroAction.setSeriesId(seriesId);
-                long duration = playbackController.getDuration();
-                outroAction.setDuration(duration);
-            }
-            secondaryActionsAdapter.add(introAction);
-            secondaryActionsAdapter.add(outroAction);
-        }
-
-        secondaryActionsAdapter.add(zoomAction);
     }
 
     @Override
@@ -319,16 +372,12 @@ public class CustomPlaybackTransportControlGlue extends PlaybackTransportControl
     }
 
     public void onCustomActionClicked(Action action, View view) {
-        // Handle custom action clicks which require a popup menu
         if (action instanceof CustomAction) {
             ((CustomAction) action).handleClickAction(playbackController, getPlayerAdapter(), getContext(), view);
         }
 
         if (action == playbackSpeedAction) {
-            // Post a callback to calculate the new time, since Exoplayer updates this in an async fashion.
-            // This is a hack, we should instead have onPlaybackParametersChanged call out to this
-            // class to notify rather than poll. But communication is unidirectional at the moment:
-            mHandler.postDelayed(mRefreshEndTime, 5000);  // 5 seconds
+            mHandler.postDelayed(mRefreshEndTime, 5000);
         }
     }
 
@@ -355,8 +404,6 @@ public class CustomPlaybackTransportControlGlue extends PlaybackTransportControl
     }
 
     void setInitialPlaybackDrawable() {
-        playPauseAction.setIndex(PlaybackControlsRow.PlayPauseAction.INDEX_PAUSE);
-        notifyActionChanged(playPauseAction);
     }
 
     void invalidatePlaybackControls() {
@@ -377,8 +424,6 @@ public class CustomPlaybackTransportControlGlue extends PlaybackTransportControl
     }
 
     void updatePlayState() {
-        playPauseAction.setIndex(isPlaying() ? PlaybackControlsRow.PlayPauseAction.INDEX_PAUSE : PlaybackControlsRow.PlayPauseAction.INDEX_PLAY);
-        notifyActionChanged(playPauseAction);
         setEndTime();
         if (!isPlaying()) {
             mHandler.removeCallbacks(mRefreshEndTime);
@@ -386,7 +431,6 @@ public class CustomPlaybackTransportControlGlue extends PlaybackTransportControl
         } else {
             mHandler.removeCallbacks(mRefreshEndTime);
         }
-
     }
 
     public void setInjectedViewsVisibility() {
@@ -414,23 +458,12 @@ public class CustomPlaybackTransportControlGlue extends PlaybackTransportControl
                     CharSequence outroLabelCs = outroAction.getLabel(0);
                     String introLabel = introLabelCs != null ? introLabelCs.toString() : null;
                     String outroLabel = outroLabelCs != null ? outroLabelCs.toString() : null;
-                    // Only consume UP/DOWN when marker is set (not "--:--"),
-                    // so user can still navigate between rows with unset actions
                     boolean introMatch = introLabel != null && label.equals(introLabel) && !introLabel.equals("--:--");
                     boolean outroMatch = outroLabel != null && label.equals(outroLabel) && !outroLabel.equals("--:--");
                     if (introMatch || outroMatch) {
                         int delta = keyCode == KeyEvent.KEYCODE_DPAD_UP ? 1 : -1;
                         if (introMatch) introAction.adjustTime(delta);
                         else outroAction.adjustTime(delta);
-                        return true;
-                    }
-                    if (label.equals(introLabel)) {
-                        int delta = keyCode == KeyEvent.KEYCODE_DPAD_UP ? 1 : -1;
-                        introAction.adjustTime(delta);
-                        return true;
-                    } else if (label.equals(outroLabel)) {
-                        int delta = keyCode == KeyEvent.KEYCODE_DPAD_UP ? 1 : -1;
-                        outroAction.adjustTime(delta);
                         return true;
                     }
                 }
