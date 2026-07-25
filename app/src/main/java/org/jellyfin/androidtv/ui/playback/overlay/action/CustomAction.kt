@@ -11,7 +11,7 @@ import org.jellyfin.androidtv.ui.playback.overlay.LeanbackOverlayFragment
 import org.jellyfin.androidtv.ui.playback.overlay.VideoPlayerAdapter
 
 abstract class CustomAction(
-	private val context: Context,
+	protected val context: Context,
 	private val customPlaybackTransportControlGlue: CustomPlaybackTransportControlGlue,
 ) : PlaybackControlsRow.MultiAction(0) {
 	fun onCustomActionClicked(view: View?) {
@@ -30,4 +30,8 @@ abstract class CustomAction(
 		context: Context,
 		view: View,
 	) {}
+
+	protected fun notifyActionChanged() {
+		customPlaybackTransportControlGlue.notifyActionChanged(this)
+	}
 }

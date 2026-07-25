@@ -18,6 +18,7 @@ import org.jellyfin.androidtv.ui.playback.PlaybackLauncher
 import org.jellyfin.androidtv.ui.playback.VideoQueueManager
 import org.jellyfin.androidtv.ui.playback.rewrite.RewriteMediaManager
 import org.jellyfin.androidtv.ui.player.BandwidthMeterDataSourceFactory
+import org.jellyfin.androidtv.ui.playback.IntroOutroStore
 import org.jellyfin.androidtv.util.AndroidVersion
 import org.jellyfin.androidtv.util.profile.createDeviceProfile
 import org.jellyfin.playback.core.playbackManager
@@ -54,6 +55,8 @@ val playbackModule = module {
 	}
 
 	single { BandwidthMeterDataSourceFactory(get<HttpDataSource.Factory>()) }
+
+	single { IntroOutroStore(get()) }
 
 	single { createPlaybackManager() }
 }

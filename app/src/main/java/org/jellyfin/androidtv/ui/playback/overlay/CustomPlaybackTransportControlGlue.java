@@ -43,6 +43,10 @@ import org.jellyfin.androidtv.ui.playback.overlay.action.SelectQualityAction;
 import org.jellyfin.androidtv.ui.playback.overlay.action.SkipNextAction;
 import org.jellyfin.androidtv.ui.playback.overlay.action.SkipPreviousAction;
 import org.jellyfin.androidtv.ui.playback.overlay.action.ZoomAction;
+import org.jellyfin.androidtv.ui.playback.overlay.action.IntroAction;
+import org.jellyfin.androidtv.ui.playback.overlay.action.OutroAction;
+import org.jellyfin.androidtv.ui.playback.IntroOutroStore;
+import org.jellyfin.sdk.model.api.BaseItemDto;
 import org.jellyfin.androidtv.util.DateTimeExtensionsKt;
 import org.koin.java.KoinJavaComponent;
 
@@ -63,6 +67,11 @@ public class CustomPlaybackTransportControlGlue extends PlaybackTransportControl
     private PlaybackSpeedAction playbackSpeedAction;
     private ZoomAction zoomAction;
     private ChapterAction chapterAction;
+
+    // Intro/Outro actions
+    private IntroAction introAction;
+    private OutroAction outroAction;
+    private IntroOutroStore introOutroStore = KoinJavaComponent.get(IntroOutroStore.class);
 
     // TV actions
     private PreviousLiveTvChannelAction previousLiveTvChannelAction;
@@ -205,6 +214,10 @@ public class CustomPlaybackTransportControlGlue extends PlaybackTransportControl
         chapterAction = new ChapterAction(context, this);
         chapterAction.setLabels(new String[]{context.getString(R.string.lbl_chapters)});
 
+        introOutroStore = KoinJavaComponent.get(IntroOutroStore.class);
+        introAction = new IntroAction(context, this, playbackController, introOutroStore);
+        outroAction = new OutroAction(context, this, playbackController, introOutroStore);
+
         previousLiveTvChannelAction = new PreviousLiveTvChannelAction(context, this);
         previousLiveTvChannelAction.setLabels(new String[]{context.getString(R.string.lbl_prev_item)});
         channelBarChannelAction = new ChannelBarChannelAction(context, this);
@@ -280,6 +293,18 @@ public class CustomPlaybackTransportControlGlue extends PlaybackTransportControl
         if (!playerAdapter.isLiveTv()) {
             secondaryActionsAdapter.add(playbackSpeedAction);
             secondaryActionsAdapter.add(selectQualityAction);
+
+            // Intro/Outro marker actions
+            BaseItemDto item = playbackController.getCurrentlyPlayingItem();
+            if (item != null) {
+                java.util.UUID seriesId = item.getSeriesId();
+                introAction.setSeriesId(seriesId);
+                outroAction.setSeriesId(seriesId);
+                long duration = playbackController.getDuration();
+                outroAction.setDuration(duration);
+            }
+            secondaryActionsAdapter.add(introAction);
+            secondaryActionsAdapter.add(outroAction);
         }
 
         secondaryActionsAdapter.add(zoomAction);
@@ -317,7 +342,7 @@ public class CustomPlaybackTransportControlGlue extends PlaybackTransportControl
         mEndsText.setText(getContext().getString(R.string.lbl_playback_control_ends, DateTimeExtensionsKt.getTimeFormatter(getContext()).format(endTime)));
     }
 
-    private void notifyActionChanged(Action action) {
+    public void notifyActionChanged(Action action) {
         ArrayObjectAdapter adapter = primaryActionsAdapter;
         if (adapter.indexOf(action) >= 0) {
             adapter.notifyArrayItemRangeChanged(adapter.indexOf(action), 1);
@@ -374,8 +399,42 @@ public class CustomPlaybackTransportControlGlue extends PlaybackTransportControl
     @Override
     public boolean onKey(View v, int keyCode, KeyEvent event) {
         if (event.getAction() != KeyEvent.ACTION_UP) {
-            // The below actions are only handled on key up
             return super.onKey(v, keyCode, event);
+        }
+
+        // Handle DPAD_UP/DOWN for intro/outro time adjustment
+        if ((keyCode == KeyEvent.KEYCODE_DPAD_UP || keyCode == KeyEvent.KEYCODE_DPAD_DOWN)
+            && introAction != null && outroAction != null) {
+            View focused = v.findFocus();
+            if (focused != null) {
+                CharSequence desc = focused.getContentDescription();
+                if (desc != null) {
+                    String label = desc.toString();
+                    CharSequence introLabelCs = introAction.getLabel(0);
+                    CharSequence outroLabelCs = outroAction.getLabel(0);
+                    String introLabel = introLabelCs != null ? introLabelCs.toString() : null;
+                    String outroLabel = outroLabelCs != null ? outroLabelCs.toString() : null;
+                    // Only consume UP/DOWN when marker is set (not "--:--"),
+                    // so user can still navigate between rows with unset actions
+                    boolean introMatch = introLabel != null && label.equals(introLabel) && !introLabel.equals("--:--");
+                    boolean outroMatch = outroLabel != null && label.equals(outroLabel) && !outroLabel.equals("--:--");
+                    if (introMatch || outroMatch) {
+                        int delta = keyCode == KeyEvent.KEYCODE_DPAD_UP ? 1 : -1;
+                        if (introMatch) introAction.adjustTime(delta);
+                        else outroAction.adjustTime(delta);
+                        return true;
+                    }
+                    if (label.equals(introLabel)) {
+                        int delta = keyCode == KeyEvent.KEYCODE_DPAD_UP ? 1 : -1;
+                        introAction.adjustTime(delta);
+                        return true;
+                    } else if (label.equals(outroLabel)) {
+                        int delta = keyCode == KeyEvent.KEYCODE_DPAD_UP ? 1 : -1;
+                        outroAction.adjustTime(delta);
+                        return true;
+                    }
+                }
+            }
         }
 
         VideoPlayerAdapter playerAdapter = getPlayerAdapter();

@@ -217,3 +217,34 @@ private fun PlaybackController.addAskToSkipAction(mediaSegment: MediaSegmentDto)
 		.setDeleteAfterDelivery(false)
 		.send()
 }
+
+@OptIn(UnstableApi::class)
+fun PlaybackController.applyManualMarkers(
+	item: BaseItemDto,
+	position: Long,
+) {
+	val store by fragment.inject<IntroOutroStore>()
+	val markers = store.getMarkers(item) ?: return
+
+	if (position == 0L) {
+		markers.introStartMs?.let { introMs ->
+			if (introMs > 0) {
+				mStartPosition = introMs
+			}
+		}
+	}
+
+	markers.outroEndMs?.let { outroMs ->
+		if (outroMs > 0) {
+			val duration = getDuration()
+			val outroTrigger = duration - outroMs
+			if (outroTrigger > 0 && outroTrigger < duration) {
+				mVideoManager.mExoPlayer
+					.createMessage { _, _ -> seek(duration, true) }
+					.setPosition(outroTrigger)
+					.setDeleteAfterDelivery(false)
+					.send()
+			}
+		}
+	}
+}

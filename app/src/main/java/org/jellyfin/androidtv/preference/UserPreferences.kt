@@ -131,6 +131,12 @@ class UserPreferences(context: Context) : SharedPreferenceStore(
 		 */
 		var lastPlaybackSpeed = floatPreference("last_playback_speed", -1.0f)
 
+		/**
+		 * JSON string of manual intro/outro markers, keyed by SeriesId.
+		 * Format: {"seriesId": {"introStartMs": 83000, "outroEndMs": 125000}}
+		 */
+		var manualIntroOutro = stringPreference("manual_intro_outro", "{}")
+
 		/* Playback - Audio related */
 		/**
 		 * Preferred behavior for audio streaming.

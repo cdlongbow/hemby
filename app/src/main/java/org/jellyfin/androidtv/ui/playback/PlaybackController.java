@@ -686,6 +686,9 @@ public class PlaybackController implements PlaybackControllerNotifiable {
         }
 
         PlaybackControllerHelperKt.applyMediaSegments(this, item, () -> {
+            // Apply manual intro/outro marker auto-seek
+            PlaybackControllerHelperKt.applyManualMarkers(PlaybackController.this, item, position);
+
             // Set video start delay
             long videoStartDelay = userPreferences.getValue().get(UserPreferences.Companion.getVideoStartDelay());
             if (videoStartDelay > 0) {
