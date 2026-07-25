@@ -39,6 +39,7 @@ import org.jellyfin.sdk.api.client.ApiClient
 import org.jellyfin.sdk.api.client.extensions.clientLogApi
 import org.jellyfin.sdk.model.ServerVersion
 import org.koin.compose.koinInject
+import timber.log.Timber
 import java.text.DecimalFormat
 import kotlin.math.roundToInt
 import kotlin.math.roundToLong
@@ -306,7 +307,8 @@ fun SettingsPlaybackAdvancedScreen() {
 						Toast.LENGTH_LONG
 					).show()
 				},
-				onFailure = {
+				onFailure = { error ->
+					Timber.w(error, "Failed to send device profile report")
 					Toast.makeText(context, R.string.pref_report_device_profile_failure, Toast.LENGTH_LONG).show()
 				},
 			)

@@ -45,14 +45,11 @@ import org.emby.androidtv.ui.settings.screen.playback.SettingsPlaybackResumeSubt
 import org.emby.androidtv.ui.settings.screen.playback.SettingsPlaybackScreen
 import org.emby.androidtv.ui.settings.screen.playback.SettingsPlaybackSpeedScreen
 import org.emby.androidtv.ui.settings.screen.playback.SettingsPlaybackZoomModeScreen
-import org.emby.androidtv.ui.settings.screen.playback.mediasegment.SettingsPlaybackMediaSegmentScreen
-import org.emby.androidtv.ui.settings.screen.playback.mediasegment.SettingsPlaybackMediaSegmentsScreen
 import org.emby.androidtv.ui.settings.screen.playback.nextup.SettingsPlaybackNextUpBehaviorScreen
 import org.emby.androidtv.ui.settings.screen.playback.nextup.SettingsPlaybackNextUpScreen
 import org.emby.androidtv.ui.settings.screen.screensaver.SettingsScreensaverAgeRatingScreen
 import org.emby.androidtv.ui.settings.screen.screensaver.SettingsScreensaverScreen
 import org.emby.androidtv.ui.settings.screen.screensaver.SettingsScreensaverTimeoutScreen
-import org.jellyfin.sdk.model.api.MediaSegmentType
 import org.jellyfin.sdk.model.serializer.toUUIDOrNull
 
 object Routes {
@@ -91,8 +88,6 @@ object Routes {
 	const val PLAYBACK_NEXT_UP_BEHAVIOR = "/playback/next-up/behavior"
 	const val PLAYBACK_INACTIVITY_PROMPT = "/playback/inactivity-prompt"
 	const val PLAYBACK_PREROLLS = "/playback/prerolls"
-	const val PLAYBACK_MEDIA_SEGMENTS = "/playback/media-segments"
-	const val PLAYBACK_MEDIA_SEGMENT = "/playback/media-segments/{segmentType}"
 	const val PLAYBACK_ADVANCED = "/playback/advanced"
 	const val PLAYBACK_RESUME_SUBTRACT_DURATION = "/playback/resume-subtract-duration"
 	const val PLAYBACK_MAX_BITRATE = "/playback/max-bitrate"
@@ -227,14 +222,6 @@ val routes = mapOf<String, RouteComposable>(
 	},
 	Routes.PLAYBACK_PREROLLS to {
 		SettingsPlaybackPrerollsScreen()
-	},
-	Routes.PLAYBACK_MEDIA_SEGMENTS to {
-		SettingsPlaybackMediaSegmentsScreen()
-	},
-	Routes.PLAYBACK_MEDIA_SEGMENT to { context ->
-		SettingsPlaybackMediaSegmentScreen(
-			segmentType = context.parameters["segmentType"]?.let(MediaSegmentType::fromNameOrNull)!!,
-		)
 	},
 	Routes.PLAYBACK_ADVANCED to {
 		SettingsPlaybackAdvancedScreen()

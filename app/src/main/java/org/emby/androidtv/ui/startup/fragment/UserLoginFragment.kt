@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
@@ -16,7 +15,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.emby.androidtv.R
-import org.emby.androidtv.auth.model.UnavailableQuickConnectState
 import org.emby.androidtv.data.service.BackgroundService
 import org.emby.androidtv.databinding.FragmentUserLoginBinding
 import org.emby.androidtv.ui.startup.UserLoginViewModel
@@ -39,7 +37,7 @@ class UserLoginFragment : Fragment() {
 
 	private val usernameArgument get() = arguments?.getString(ARG_USERNAME)?.ifBlank { null }
 	private val serverIdArgument get() = arguments?.getString(ARG_SERVER_ID)?.ifBlank { null }
-	private val skipQuickConnect get() = arguments?.getBoolean(ARG_SKIP_QUICKCONNECT) ?: false
+	private val skipQuickConnect get() = arguments?.getBoolean(ARG_SKIP_QUICKCONNECT) ?: true
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -57,7 +55,7 @@ class UserLoginFragment : Fragment() {
 
 		binding.cancel.setOnClickListener { parentFragmentManager.popBackStack() }
 		binding.useCredentials.setOnClickListener { setLoginMethod<UserLoginCredentialsFragment>() }
-		binding.useQuickconnect.setOnClickListener { setLoginMethod<UserLoginQuickConnectFragment>() }
+		binding.useQuickconnect.isVisible = false
 
 		return binding.root
 	}
@@ -66,26 +64,16 @@ class UserLoginFragment : Fragment() {
 		super.onViewCreated(view, savedInstanceState)
 
 		userLoginViewModel.clearLoginState()
-
-		// Open initial fragment
-		if (skipQuickConnect) setLoginMethod<UserLoginCredentialsFragment>()
-		else setLoginMethod<UserLoginQuickConnectFragment>()
+		setLoginMethod<UserLoginCredentialsFragment>()
 
 		lifecycleScope.launch {
 			viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-				// Update "connecting to ..." text and background
 				userLoginViewModel.server.onEach { server ->
 					val name = server?.name ?: "Emby"
 					binding.subtitle.text = getString(R.string.login_connect_to, name)
 
 					if (server != null) backgroundService.setBackground(server)
 					else backgroundService.clearBackgrounds()
-				}.launchIn(this)
-
-				// Disable QuickConnect when unavailable
-				userLoginViewModel.quickConnectState.onEach { state ->
-					binding.useQuickconnect.isEnabled = state != UnavailableQuickConnectState
-					if (state == UnavailableQuickConnectState) setLoginMethod<UserLoginCredentialsFragment>()
 				}.launchIn(this)
 			}
 		}
@@ -106,8 +94,6 @@ class UserLoginFragment : Fragment() {
 			replace<T>(binding.loginMethod.id, TAG_LOGIN_METHOD)
 		}
 
-		// Hide button for active fragment
 		binding.useCredentials.isVisible = T::class != UserLoginCredentialsFragment::class
-		binding.useQuickconnect.isVisible = T::class != UserLoginQuickConnectFragment::class
 	}
 }
