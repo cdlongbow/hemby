@@ -1,77 +1,49 @@
-<h1 align="center">Jellyfin for Android TV</h1>
-<h3 align="center">Part of the <a href="https://jellyfin.org">Jellyfin Project</a></h3>
+<h1 align="center">Hemby for Android TV</h1>
+<h3 align="center">Emby 客户端 for Android TV</h3>
 
 ---
 
 <p align="center">
-<img alt="Logo banner" src="https://raw.githubusercontent.com/jellyfin/jellyfin-ux/master/branding/SVG/banner-logo-solid.svg?sanitize=true"/>
 <br/><br/>
-<a href="https://github.com/jellyfin/jellyfin-androidtv">
-<img alt="GPL 2.0 License" src="https://img.shields.io/github/license/jellyfin/jellyfin-androidtv.svg"/>
+<a href="https://github.com/cdlongbow/hemby">
+<img alt="License" src="https://img.shields.io/github/license/cdlongbow/hemby"/>
 </a>
-<a href="https://github.com/jellyfin/jellyfin-androidtv/releases">
-<img alt="Current Release" src="https://img.shields.io/github/release/jellyfin/jellyfin-androidtv.svg"/>
+<a href="https://github.com/cdlongbow/hemby/releases">
+<img alt="Current Release" src="https://img.shields.io/github/release/cdlongbow/hemby"/>
 </a>
-<a href="https://translate.jellyfin.org/projects/jellyfin-android/jellyfin-androidtv/">
-<img alt="Translation Status" src="https://translate.jellyfin.org/widgets/jellyfin-android/-/jellyfin-androidtv/svg-badge.svg"/>
-</a>
-<br/>
-<a href="https://opencollective.com/jellyfin">
-<img alt="Donate" src="https://img.shields.io/opencollective/all/jellyfin.svg?label=backers"/>
-</a>
-<a href="https://features.jellyfin.org">
-<img alt="Feature Requests" src="https://img.shields.io/badge/fider-vote%20on%20features-success.svg"/>
-</a>
-<a href="https://matrix.to/#/+jellyfin:matrix.org">
-<img alt="Chat on Matrix" src="https://img.shields.io/matrix/jellyfin:matrix.org.svg?logo=matrix"/>
-</a>
-<br/>
-<a href="https://play.google.com/store/apps/details?id=org.jellyfin.androidtv">
-<img width="153" alt="Jellyfin on Google Play" src="https://jellyfin.org/images/store-icons/google-play.png"/>
-</a>
-<a href="https://www.amazon.com/gp/aw/d/B07TX7Z725">
-<img width="153" alt="Jellyfin on Amazon Appstore" src="https://jellyfin.org/images/store-icons/amazon.png"/>
-</a>
-<a href="https://f-droid.org/en/packages/org.jellyfin.androidtv/">
-<img width="153" alt="Jellyfin on F-Droid" src="https://jellyfin.org/images/store-icons/fdroid.png"/>
-</a>
-<br/>
-<a href="https://repo.jellyfin.org/releases/client/androidtv/">Download archive</a>
 </p>
 
-Jellyfin for Android TV is a Jellyfin client for Android TV, Nvidia Shield, and Amazon Fire TV devices. We welcome all contributions and pull
-requests! If you have a larger feature in mind please open an issue so we can discuss the implementation before you start. 
+Hemby 是一个基于 Jellyfin Android TV 源码改造的 Emby 客户端，适用于 Android TV、Nvidia Shield 和 Amazon Fire TV 设备。
 
-## Building
+## 构建
 
-The app uses Gradle and requires the Android SDK. We recommend using Android Studio, which includes all required dependencies, for
-development and building. For manual building without Android Studio make sure a compatible JDK and Android SDK are installed and in your
-PATH, then use the Gradle wrapper (`./gradlew`) to build the project with the `assembleDebug` Gradle task to generate an apk file:
+项目使用 Gradle 并需要 Android SDK。推荐使用 Android Studio 进行开发和构建。手动构建请确保 JDK 和 Android SDK 已安装并配置在 PATH 中，然后使用 Gradle wrapper：
 
 ```shell
 ./gradlew assembleDebug
 ```
 
-The task will create an APK file in the `/app/build/outputs/apk/debug` directory. This APK file uses a different app-id from our stable
-builds and can be manually installed to your device.
+生成的 APK 文件位于 `/app/build/outputs/apk/debug` 目录。
 
-## Branching
+## 特性
 
-The `master` branch is the primary development branch and the target for all pull requests. It is **unstable** and may contain breaking
-changes or unresolved bugs. For production deployments and forks, always use the latest `release-x.y.z` branch. Do not base production work
-or long-lived forks on `master`.
+- 基于 Jellyfin Android TV 最新源码，功能完整
+- 自动适配 Emby 服务器 API（OkHttp 拦截器处理 `/emby` 前缀）
+- 播放速度扩展至 0.25x~3.0x（12 档）
+- 全局播放速度设置持久化
+- 屏显信息叠加层（时钟、播放时长、网速）
+- 手动标记片头片尾 + 自动跳过
+- 播放器浮层文字按钮，更直观
+- 独立选集按钮，从服务器异步获取剧集列表
 
-Release branches are created at the start of a beta cycle and are kept up to date with each published release. Maintainers will cherry-pick
-selected changes into release branches as needed for backports. These branches are reused for subsequent patch releases.
+## 分支
 
-## Translating
+| 分支 | 说明 |
+|------|------|
+| `hemby` | 主开发分支，基于 `260725-feat-emby-url-adapter` 合并 |
+| `260725-*` | 功能分支，按日期命名 |
 
-Translations can be improved very easily from our [Weblate](https://translate.jellyfin.org/projects/jellyfin-android/jellyfin-androidtv)
-instance. Look through the following graphic to see if your native language could use some work! We cannot accept changes to translation
-files via pull requests.
+## 致谢
 
-<p align="center">
-<a href="https://translate.jellyfin.org/engage/jellyfin-android/">
-<img alt="Detailed Translation Status" src="https://translate.jellyfin.org/widgets/jellyfin-android/-/jellyfin-androidtv/multi-auto.svg"/>
-</a>
-</p>
+- [Jellyfin Project](https://jellyfin.org) — 原始项目
+- [Emby](https://emby.media) — 媒体服务器
