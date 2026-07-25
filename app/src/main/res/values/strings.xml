@@ -350,8 +350,13 @@
     <string name="lbl_hide_watched_checkmark">When there are episodes remaining</string>
     <string name="lbl_use_series_thumbnails">Prefer series thumbnails</string>
     <string name="lbl_use_series_thumbnails_description">Use series thumbnails when displaying episodes</string>
-    <string name="lbl_osd_time_cycle">OSD info overlay (clock / time / speed)</string>
-    <string name="lbl_osd_time_cycle_description">Show system clock, playback time, and network speed on screen</string>
+    <string name="lbl_osd_clock">Clock</string>
+    <string name="lbl_osd_clock_description">Show system clock on screen</string>
+    <string name="lbl_osd">On-screen display</string>
+    <string name="lbl_osd_time">Playback time</string>
+    <string name="lbl_osd_time_description">Show elapsed / total time on screen</string>
+    <string name="lbl_osd_network_speed">Network speed</string>
+    <string name="lbl_osd_network_speed_description">Show real-time download speed on screen</string>
     <string name="auto_sign_in">Automatic sign in</string>
     <string name="user_picker_disable_title">Disable</string>
     <string name="user_picker_disable_summary">Always show the sign in screen</string>

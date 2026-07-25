@@ -200,9 +200,19 @@ class UserPreferences(context: Context) : SharedPreferenceStore(
 		var subtitlesOffsetPosition = floatPreference("subtitles_offset_position", 0.08f)
 
 		/**
-		 * Enable OSD time display mode cycling (tap to switch between elapsed/remaining/total)
+		 * Show OSD clock
 		 */
-		var osdTimeCycleEnabled = booleanPreference("osd_time_cycle_enabled", false)
+		var osdClockEnabled = booleanPreference("osd_clock_enabled", true)
+
+		/**
+		 * Show OSD playback time
+		 */
+		var osdTimeEnabled = booleanPreference("osd_time_enabled", true)
+
+		/**
+		 * Show OSD network speed
+		 */
+		var osdNetworkSpeedEnabled = booleanPreference("osd_network_speed_enabled", true)
 
 		/**
 		 * Show screensaver in app

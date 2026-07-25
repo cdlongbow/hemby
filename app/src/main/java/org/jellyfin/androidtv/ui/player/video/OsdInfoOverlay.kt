@@ -2,6 +2,7 @@ package org.jellyfin.androidtv.ui.player.video
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -40,8 +41,10 @@ fun OsdInfoOverlay(
     userPreferences: UserPreferences = koinInject(),
     bandwidthMeterFactory: BandwidthMeterDataSourceFactory = koinInject(),
 ) {
-    val osdEnabled = userPreferences[UserPreferences.osdTimeCycleEnabled]
-    if (!osdEnabled) return
+    val showClock = userPreferences[UserPreferences.osdClockEnabled]
+    val showTime = userPreferences[UserPreferences.osdTimeEnabled]
+    val showSpeed = userPreferences[UserPreferences.osdNetworkSpeedEnabled]
+    if (!showClock && !showTime && !showSpeed) return
 
     var currentTime by remember { mutableStateOf("") }
     var positionInfo by remember { mutableStateOf(PositionInfo.EMPTY) }
@@ -68,29 +71,74 @@ fun OsdInfoOverlay(
         else -> "%.1f MB/s".format(bandwidth / 1_000_000f)
     }
 
-    Box(
+Box(
         modifier = Modifier.fillMaxSize()
     ) {
-        Column(
-            modifier = Modifier
-                .align(Alignment.TopEnd)
-                .padding(top = 16.dp, end = 16.dp),
-            horizontalAlignment = Alignment.End,
-        ) {
-            Text(
-                text = currentTime,
-                color = Color.White,
-                fontSize = 20.sp,
-                fontFamily = FontFamily.Monospace,
-                textAlign = TextAlign.End,
+        if (showClock) {
+            Column(
                 modifier = Modifier
-                    .background(
-                        color = Color.Black.copy(alpha = 0.5f),
-                        shape = RoundedCornerShape(4.dp)
-                    )
-                    .padding(horizontal = 8.dp, vertical = 4.dp),
-            )
+                    .align(Alignment.TopEnd)
+                    .padding(top = 16.dp, end = 16.dp),
+                horizontalAlignment = Alignment.End,
+            ) {
+                Text(
+                    text = currentTime,
+                    color = Color.White,
+                    fontSize = 20.sp,
+                    fontFamily = FontFamily.Monospace,
+                    textAlign = TextAlign.End,
+                    modifier = Modifier
+                        .background(
+                            color = Color.Black.copy(alpha = 0.5f),
+                            shape = RoundedCornerShape(4.dp)
+                        )
+                        .padding(horizontal = 8.dp, vertical = 4.dp),
+                )
+            }
         }
+
+        if (showTime) {
+            Box(
+                modifier = Modifier
+                    .align(Alignment.BottomStart)
+                    .padding(start = 16.dp, bottom = 80.dp)
+            ) {
+                Text(
+                    text = timeText,
+                    color = Color.White,
+                    fontSize = 16.sp,
+                    fontFamily = FontFamily.Monospace,
+                    modifier = Modifier
+                        .background(
+                            color = Color.Black.copy(alpha = 0.5f),
+                            shape = RoundedCornerShape(4.dp)
+                        )
+                        .padding(horizontal = 8.dp, vertical = 4.dp),
+                )
+            }
+        }
+
+        if (showSpeed) {
+            Box(
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(end = 16.dp, bottom = 80.dp)
+            ) {
+                Text(
+                    text = speedText,
+                    color = Color.White.copy(alpha = 0.8f),
+                    fontSize = 16.sp,
+                    fontFamily = FontFamily.Monospace,
+                    modifier = Modifier
+                        .background(
+                            color = Color.Black.copy(alpha = 0.4f),
+                            shape = RoundedCornerShape(4.dp)
+                        )
+                        .padding(horizontal = 8.dp, vertical = 4.dp),
+                )
+            }
+        }
+    }
 
         Box(
             modifier = Modifier
