@@ -52,10 +52,9 @@ interface ServerRepository {
 	suspend fun deleteServer(server: UUID): Boolean
 
 	companion object {
-		val minimumServerVersion = Jellyfin.minimumVersion.copy(build = null)
-		val recommendedServerVersion = Jellyfin.apiVersion.copy(build = null)
-
-		val upcomingMinimumServerVersion = ServerVersion(10, 11, 0)
+		val minimumServerVersion = ServerVersion(4, 0, 0)
+		val recommendedServerVersion = ServerVersion(4, 10, 0)
+		val upcomingMinimumServerVersion = ServerVersion(4, 0, 0)
 	}
 }
 

@@ -3,7 +3,6 @@ package org.emby.androidtv.ui.settings
 import org.emby.androidtv.ui.navigation.RouteComposable
 import org.emby.androidtv.ui.settings.screen.SettingsDeveloperScreen
 import org.emby.androidtv.ui.settings.screen.SettingsOsdScreen
-import org.emby.androidtv.ui.settings.screen.SettingsTelemetryScreen
 import org.emby.androidtv.ui.settings.screen.about.SettingsAboutScreen
 import org.emby.androidtv.ui.settings.screen.authentication.SettingsAuthenticationAutoSignInScreen
 import org.emby.androidtv.ui.settings.screen.authentication.SettingsAuthenticationScreen
@@ -106,7 +105,6 @@ object Routes {
 	const val PLAYBACK_AVC_LEVEL = "/playback/codec/avc-level"
 	const val PLAYBACK_HEVC_LEVEL = "/playback/codec/hevc-level"
 	const val OSD = "/osd"
-	const val TELEMETRY = "/telemetry"
 	const val DEVELOPER = "/developer"
 	const val ABOUT = "/about"
 	const val LICENSES = "/licenses"
@@ -273,9 +271,6 @@ val routes = mapOf<String, RouteComposable>(
 	},
 	Routes.OSD to {
 		SettingsOsdScreen()
-	},
-	Routes.TELEMETRY to {
-		SettingsTelemetryScreen()
 	},
 	Routes.DEVELOPER to {
 		SettingsDeveloperScreen()

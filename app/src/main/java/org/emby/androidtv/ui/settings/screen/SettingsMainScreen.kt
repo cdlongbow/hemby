@@ -68,15 +68,6 @@ fun SettingsMainScreen() {
 
 		item {
 			ListButton(
-				leadingContent = { Icon(painterResource(R.drawable.ic_error), contentDescription = null) },
-				headingContent = { Text(stringResource(R.string.pref_telemetry_category)) },
-				onClick = { router.push(Routes.TELEMETRY) }
-			)
-
-		}
-
-		item {
-			ListButton(
 				leadingContent = { Icon(painterResource(R.drawable.ic_emby), contentDescription = null) },
 				headingContent = { Text(stringResource(R.string.pref_about_title)) },
 				onClick = { router.push(Routes.ABOUT) }
