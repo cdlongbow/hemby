@@ -23,6 +23,7 @@ import org.jellyfin.sdk.api.client.exception.ApiClientException
 import org.jellyfin.sdk.api.client.exception.InvalidContentException
 import org.jellyfin.sdk.api.client.extensions.brandingApi
 import org.jellyfin.sdk.api.client.extensions.systemApi
+import org.jellyfin.sdk.discovery.RecommendedServerIssue
 import org.jellyfin.sdk.discovery.RecommendedServerInfo
 import org.jellyfin.sdk.discovery.RecommendedServerInfoScore
 import org.jellyfin.sdk.model.ServerVersion
@@ -133,7 +134,9 @@ class ServerRepositoryImpl(
 			append(" bad")
 		})
 
-		val chosenRecommendation = greatRecommendation ?: goodRecommendations.firstOrNull()
+		val chosenRecommendation = greatRecommendation
+			?: goodRecommendations.firstOrNull()
+			?: badRecommendations.firstOrNull { it.systemInfo.isSuccess }
 		if (chosenRecommendation != null && chosenRecommendation.systemInfo.isSuccess) {
 			// Get system info
 			val systemInfo = chosenRecommendation.systemInfo.getOrThrow()
